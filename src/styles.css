@@ -1,0 +1,43 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Montserrat SemiBold';
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+#gameGrid {
+  width: 782px;
+  height: 780px;
+  background-color: #f2f2f2;
+  border: 1px solid black;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.newCell {
+  width: 39px;
+  height: 39px;
+
+  border: 1px solid grey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.player {
+  background-image: url(face.png);
+  background-size: 100%;
+  width: 39px;
+  height: 39px;
+  border: 1px solid grey;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
