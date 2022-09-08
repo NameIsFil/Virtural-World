@@ -1,21 +1,21 @@
 import {Tile} from "./Tile";
 
 class Board {
+    visibleGameGrid = document.querySelector('#gameGrid')
     rows = 20;
     columns = 20;
-    gameGridElement = document.querySelector('#gameGrid');
     gameGrid = [];
 
     constructor() {
-        this.generateGrid()
+        this.generateGrid();
     }
 
     generateGrid() {
         for (let row = 0; row < this.rows; row++) {
             this.gameGrid[row] = [];
             for (let column = 0; column < this.columns; column++) {
-                this.gameGrid[row][column] = new Tile();
-                this.gameGridElement.append();
+                const tile = new Tile();
+                this.visibleGameGrid.append(tile);
             }
         }
     }
