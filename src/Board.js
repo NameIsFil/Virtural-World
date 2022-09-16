@@ -1,23 +1,22 @@
-import './styles.css';
-import {Tile} from "./Tile";
+import { Tile } from './Tile';
 
 class Board {
-    visibleGameGrid = document.querySelector('#gameGrid');
-    rows = 20;
-    columns = 20;
-    gameGrid = [];
+  visibleGameGrid = document.querySelector('#gameGrid');
+  rows = 20;
+  columns = 20;
+  gameGrid = [];
 
-    constructor() {
-        this.generateGrid();
+  constructor() {
+    this.generateGrid();
+    this.spawnCharacters();
+  }
+
+  generateGrid() {
+    for (let i = 0; i < this.rows * this.columns; i++) {
+      const square = new Tile();
+      this.gameGrid.push(square);
     }
-
-    generateGrid() {
-        for (let i = 0; i < this.rows * this.columns; i++) {
-            const square = new Tile();
-            this.gameGrid.push(square);
-        }
-    }
-
+  }
 }
 
 export { Board };

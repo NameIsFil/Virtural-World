@@ -1,22 +1,22 @@
 class Tile {
-    visibleGameGrid = document.querySelector('#gameGrid');
-    setOrganism;
-    xIndex;
-    yIndex;
+  visibleGameGrid = document.querySelector('#gameGrid');
+  setOrganism;
+  xIndex;
+  yIndex;
 
-    constructor() {
-        this.createDiv();
-    }
+  constructor() {
+    this.createDiv();
+  }
 
-    createDiv() {
-        const newSquare = document.createElement('div');
-        newSquare.classList.add("newCell");
-        this.visibleGameGrid.appendChild(newSquare);
-    }
+  createDiv() {
+    const newSquare = document.createElement('div');
+    newSquare.classList.add('newCell');
+    this.visibleGameGrid.appendChild(newSquare);
+  }
 
-    // setOrganism()
+  // setOrganism()
 
-    // removeOrganism()
+  // removeOrganism()
 }
 
 export { Tile };

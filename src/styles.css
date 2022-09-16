@@ -9,7 +9,6 @@ body {
   justify-content: center;
 }
 
-
 #gameGrid {
   width: 800px;
   height: 800px;
@@ -28,4 +27,14 @@ body {
   align-items: center;
   justify-content: center;
   background-color: #f2f2f2;
+}
+
+.player-tile {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgb(58, 58, 58);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: red;
 }
