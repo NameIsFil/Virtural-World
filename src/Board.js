@@ -2,8 +2,8 @@ import { Tile } from './Tile';
 
 class Board {
   visibleGameGrid = document.querySelector('#gameGrid');
-  rows = 20;
-  columns = 20;
+  numberOfRows = 20;
+  numberOfColumns = 20;
   gameGrid = [];
 
   constructor() {
@@ -11,10 +11,13 @@ class Board {
   }
 
   generateGrid() {
-    for (let i = 0; i < this.rows * this.columns; i++) {
-      const tile = new Tile();
-      this.visibleGameGrid.appendChild(tile.divElement);
-      this.gameGrid.push(tile);
+    for (let y = 0; y < this.numberOfColumns; y++) {
+      this.gameGrid[y] = this.gameGrid[y] || [];
+      for (let x = 0; x < this.numberOfRows; x++) {
+        const tile = new Tile();
+        this.gameGrid[y][x] = tile;
+        this.visibleGameGrid.appendChild(tile.divElement);
+      }
     }
   }
 }
