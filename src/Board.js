@@ -1,7 +1,8 @@
+import './styles.css';
 import {Tile} from "./Tile";
 
 class Board {
-    visibleGameGrid = document.querySelector('#gameGrid')
+    visibleGameGrid = document.querySelector('#gameGrid');
     rows = 20;
     columns = 20;
     gameGrid = [];
@@ -11,14 +12,12 @@ class Board {
     }
 
     generateGrid() {
-        for (let row = 0; row < this.rows; row++) {
-            this.gameGrid[row] = [];
-            for (let column = 0; column < this.columns; column++) {
-                const tile = new Tile();
-                this.visibleGameGrid.append(tile);
-            }
+        for (let i = 0; i < this.rows * this.columns; i++) {
+            const square = new Tile();
+            this.gameGrid.push(square);
         }
     }
+
 }
 
-export {Board};
+export { Board };

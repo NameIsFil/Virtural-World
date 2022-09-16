@@ -1,4 +1,5 @@
 class Tile {
+    visibleGameGrid = document.querySelector('#gameGrid');
     setOrganism;
     xIndex;
     yIndex;
@@ -8,8 +9,9 @@ class Tile {
     }
 
     createDiv() {
-        const newTile = document.createElement('div');
-        newTile.classList.add('.newCell');
+        const newSquare = document.createElement('div');
+        newSquare.classList.add("newCell");
+        this.visibleGameGrid.appendChild(newSquare);
     }
 
     // setOrganism()
