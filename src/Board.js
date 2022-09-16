@@ -8,13 +8,13 @@ class Board {
 
   constructor() {
     this.generateGrid();
-    this.spawnCharacters();
   }
 
   generateGrid() {
     for (let i = 0; i < this.rows * this.columns; i++) {
-      const square = new Tile();
-      this.gameGrid.push(square);
+      const tile = new Tile();
+      this.visibleGameGrid.appendChild(tile.divElement);
+      this.gameGrid.push(tile);
     }
   }
 }
