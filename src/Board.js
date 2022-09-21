@@ -19,6 +19,16 @@ class Board {
         this.visibleGameGrid.appendChild(tile.divElement);
       }
     }
+    this.spawnPlayer();
+  }
+
+  spawnPlayer() {
+    const player = document.createElement('div');
+    player.classList.add('player-tile');
+    const randomIndex1 = Math.floor(Math.random() * 20);
+    const randomIndex2 = Math.floor(Math.random() * 20);
+    this.gameGrid[randomIndex1][randomIndex2] = player;
+    this.visibleGameGrid.appendChild(player);
   }
 }
 
