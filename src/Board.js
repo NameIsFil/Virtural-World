@@ -20,6 +20,7 @@ class Board {
       }
     }
     this.spawnPlayer();
+    this.playerMovement();
   }
 
   spawnPlayer() {
@@ -28,8 +29,18 @@ class Board {
     let player = this.gameGrid[randomYIndex][randomXIndex];
     player.divElement.classList.add('player-tile');
   }
+
+  playerMovement() {
+    for (let y = 0; y < this.numberOfColumns; y++) {
+      for (let x = 0; x < this.numberOfRows; x++) {
+        if (this.gameGrid[y][x].classList.contains('player-tile')) {
+          console.log(this.gameGrid[y][x]);
+          // player.divElement.classList.remove('player-tile');
+          // div.newCell.player-tile
+        }
+      }
+    }
+  }
 }
-
-
 
 export { Board };
