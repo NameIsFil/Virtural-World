@@ -1,10 +1,14 @@
 import { Tile } from './Tile';
+import { Player } from './Organism';
 
 class Board {
   visibleGameGrid = document.querySelector('#gameGrid');
   numberOfRows = 20;
   numberOfColumns = 20;
   gameGrid = [];
+  player;
+  playerXIndex;
+  playerYIndex;
 
   constructor() {
     this.generateGrid();
@@ -20,25 +24,22 @@ class Board {
       }
     }
     this.spawnPlayer();
-    this.playerMovement();
   }
 
   spawnPlayer() {
-    const randomYIndex = Math.floor(Math.random() * 20);
-    const randomXIndex = Math.floor(Math.random() * 20);
-    let player = this.gameGrid[randomYIndex][randomXIndex];
-    player.divElement.classList.add('player-tile');
+    this.playerXIndex = Math.floor(Math.random() * 20);
+    this.playerYIndex = Math.floor(Math.random() * 20);
+    this.player = this.gameGrid[this.playerYIndex][this.playerXIndex];
+    this.player.divElement.classList.add('player-tile');
   }
 
-  playerMovement() {
-    for (let y = 0; y < this.numberOfColumns; y++) {
-      for (let x = 0; x < this.numberOfRows; x++) {
-        if (this.gameGrid[y][x].classList.contains('player-tile')) {
-          console.log(this.gameGrid[y][x]);
-          // player.divElement.classList.remove('player-tile');
-          // div.newCell.player-tile
-        }
-      }
+  movePlayer(keyboardKey) {
+    //left
+    if (keyboardKey.keyCode === 37) {
+      this.playerXIndex = this.playerXIndex - 1;
+      this.player.divElement.classList.remove('player-tile');
+      this.player = this.gameGrid[this.playerYIndex][this.playerXIndex];
+      this.player.divElement.classList.add('player-tile');
     }
   }
 }

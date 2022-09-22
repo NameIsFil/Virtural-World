@@ -20,9 +20,20 @@ class Animal extends Organism {
 }
 
 class Player extends Animal {
-    constructor(yIndex, xIndex) {
+    playerElement;
+    randomYIndex = Math.floor(Math.random() * 20);
+    randomXIndex = Math.floor(Math.random() * 20);
+    
+    constructor() {
 
     }
+
+    spawnPlayer() {
+        this.playerElement = this.gameGrid[this.randomYIndex][this.randomXIndex];
+        this.playerElement.divElement.classList.add('player-tile');
+      }
+    
+
 }
 
-export { Organism };
+export { Organism, Animal, Player };
