@@ -23,13 +23,13 @@ class Board {
   }
 
   spawnPlayer() {
-    const player = document.createElement('div');
-    player.classList.add('player-tile');
-    const randomIndex1 = Math.floor(Math.random() * 20);
-    const randomIndex2 = Math.floor(Math.random() * 20);
-    this.gameGrid[randomIndex1][randomIndex2] = player;
-    this.visibleGameGrid.appendChild(player);
+    const randomYIndex = Math.floor(Math.random() * 20);
+    const randomXIndex = Math.floor(Math.random() * 20);
+    let player = this.gameGrid[randomYIndex][randomXIndex];
+    player.divElement.classList.add('player-tile');
   }
 }
+
+
 
 export { Board };
