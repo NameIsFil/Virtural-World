@@ -1,5 +1,6 @@
 class Organism {
   initiatve;
+  divClass;
   action() {}
 }
 

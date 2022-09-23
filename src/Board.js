@@ -1,5 +1,5 @@
 import { Tile } from './Tile';
-import { Player } from './Organism';
+import { Player } from './Player';
 
 class Board {
   visibleGameGrid = document.querySelector('#gameGrid');
@@ -12,6 +12,8 @@ class Board {
 
   constructor() {
     this.generateGrid();
+    this.spawnPlayer();
+    this.refreshBoard();
   }
 
   generateGrid() {
@@ -23,24 +25,35 @@ class Board {
         this.visibleGameGrid.appendChild(tile.divElement);
       }
     }
-    this.spawnPlayer();
   }
 
   spawnPlayer() {
     this.playerXIndex = Math.floor(Math.random() * 20);
     this.playerYIndex = Math.floor(Math.random() * 20);
-    this.player = this.gameGrid[this.playerYIndex][this.playerXIndex];
-    this.player.divElement.classList.add('player-tile');
+    
+    const tile = this.gameGrid[this.playerYIndex][this.playerXIndex];
+    tile.setOrganism(new Player());
   }
+
+  refreshBoard() {
+    for (let y = 0; y < this.numberOfColumns; y++) {
+      for (let x = 0; x < this.numberOfRows; x++) {
+        const tile = this.gameGrid[y][x];
+        tile.refreshDiv() 
+      }
+    }
+  }
+
 
   movePlayer(keyboardKey) {
     //up
     if (keyboardKey.keyCode === 38) {
       if (this.playerYIndex - 1 >= 0) {
+        const oldTile = this.gameGrid[this.playerYIndex][this.playerXIndex];
         this.playerYIndex = this.playerYIndex - 1;
-        this.player.divElement.classList.remove('player-tile');
-        this.player = this.gameGrid[this.playerYIndex][this.playerXIndex];
-        this.player.divElement.classList.add('player-tile');
+        const newTile = this.gameGrid[this.playerYIndex][this.playerXIndex];
+        newTile.setOrganism(oldTile.organism);
+        oldTile.setOrganism(null)
       }
     }
     //right-up
@@ -110,6 +123,7 @@ class Board {
         this.player.divElement.classList.add('player-tile');
       }
     }
+    this.refreshBoard();
   }
 }
 

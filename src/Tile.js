@@ -1,8 +1,6 @@
 class Tile {
   divElement;
-  setOrganism;
-  xIndex;
-  yIndex;
+  organism;
 
   constructor() {
     this.createDiv();
@@ -10,10 +8,19 @@ class Tile {
 
   createDiv() {
     this.divElement = document.createElement('div');
-    this.divElement.classList.add('newCell');
+    this.divElement.classList.add('cell');
   }
 
-  // setOrganism()
+  setOrganism(organism) {
+    this.organism = organism;
+  }
+
+  refreshDiv() {
+    this.divElement.className = 'cell';
+    if(this.organism) {
+      this.divElement.classList.add(this.organism.divClass);
+    }
+  }
 
   // removeOrganism()
 }

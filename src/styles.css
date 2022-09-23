@@ -19,7 +19,7 @@ body {
   justify-content: center;
 }
 
-.newCell {
+.cell {
   width: 40px;
   height: 40px;
   border: 1px solid rgb(58, 58, 58);
