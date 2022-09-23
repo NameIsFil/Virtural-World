@@ -36,7 +36,7 @@ class Board {
   movePlayer(keyboardKey) {
     //up
     if (keyboardKey.keyCode === 38) {
-      if(this.playerYIndex - 1 >= 0) {
+      if (this.playerYIndex - 1 >= 0) {
         this.playerYIndex = this.playerYIndex - 1;
         this.player.divElement.classList.remove('player-tile');
         this.player = this.gameGrid[this.playerYIndex][this.playerXIndex];
@@ -45,7 +45,7 @@ class Board {
     }
     //right-up
     else if (keyboardKey.keyCode === 33) {
-      if(this.playerYIndex - 1 >= 0 && this.playerXIndex + 1 <= 19) {
+      if (this.playerYIndex - 1 >= 0 && this.playerXIndex + 1 <= 19) {
         this.playerYIndex = this.playerYIndex - 1;
         this.playerXIndex = this.playerXIndex + 1;
         this.player.divElement.classList.remove('player-tile');
@@ -55,7 +55,7 @@ class Board {
     }
     //right
     else if (keyboardKey.keyCode === 39) {
-      if(this.playerXIndex + 1 <= 19) {
+      if (this.playerXIndex + 1 <= 19) {
         this.playerXIndex = this.playerXIndex + 1;
         this.player.divElement.classList.remove('player-tile');
         this.player = this.gameGrid[this.playerYIndex][this.playerXIndex];
@@ -64,7 +64,7 @@ class Board {
     }
     //right-down
     else if (keyboardKey.keyCode === 34) {
-      if(this.playerXIndex + 1 <= 19 && this.playerYIndex + 1 <= 19) {
+      if (this.playerXIndex + 1 <= 19 && this.playerYIndex + 1 <= 19) {
         this.playerXIndex = this.playerXIndex + 1;
         this.playerYIndex = this.playerYIndex + 1;
         this.player.divElement.classList.remove('player-tile');
@@ -74,7 +74,7 @@ class Board {
     }
     //down
     else if (keyboardKey.keyCode === 40) {
-      if(this.playerYIndex + 1 <= 19) {
+      if (this.playerYIndex + 1 <= 19) {
         this.playerYIndex = this.playerYIndex + 1;
         this.player.divElement.classList.remove('player-tile');
         this.player = this.gameGrid[this.playerYIndex][this.playerXIndex];
@@ -83,7 +83,7 @@ class Board {
     }
     //left-down
     else if (keyboardKey.keyCode === 35) {
-      if(this.playerYIndex + 1 <= 19 && this.playerXIndex - 1 >= 0) {
+      if (this.playerYIndex + 1 <= 19 && this.playerXIndex - 1 >= 0) {
         this.playerYIndex = this.playerYIndex + 1;
         this.playerXIndex = this.playerXIndex - 1;
         this.player.divElement.classList.remove('player-tile');
@@ -93,7 +93,7 @@ class Board {
     }
     //left
     else if (keyboardKey.keyCode === 37) {
-      if(this.playerXIndex - 1 >= 0) {
+      if (this.playerXIndex - 1 >= 0) {
         this.playerXIndex = this.playerXIndex - 1;
         this.player.divElement.classList.remove('player-tile');
         this.player = this.gameGrid[this.playerYIndex][this.playerXIndex];
@@ -102,7 +102,7 @@ class Board {
     }
     //left-up
     else if (keyboardKey.keyCode === 36) {
-      if(this.playerXIndex - 1 >= 0 && this.playerYIndex - 1 >= 0) {
+      if (this.playerXIndex - 1 >= 0 && this.playerYIndex - 1 >= 0) {
         this.playerXIndex = this.playerXIndex - 1;
         this.playerYIndex = this.playerYIndex - 1;
         this.player.divElement.classList.remove('player-tile');
