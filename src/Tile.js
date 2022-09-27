@@ -17,7 +17,7 @@ class Tile {
 
   refreshDiv() {
     this.divElement.className = 'cell';
-    if(this.organism) {
+    if (this.organism) {
       this.divElement.classList.add(this.organism.divClass);
     }
   }
