@@ -1,18 +1,19 @@
 import { Tile } from './Tile';
 import { Player } from './Player';
+import { Wolf } from './Wolf';
 
 class Board {
-  visibleGameGrid = document.querySelector('#gameGrid');
+  visibleGameGrid = document.querySelector('#game-grid');
   numberOfRows = 20;
   numberOfColumns = 20;
   gameGrid = [];
-  player;
   playerXIndex;
   playerYIndex;
 
   constructor() {
     this.generateGrid();
     this.spawnPlayer();
+    this.spawnWolf()
     this.refreshBoard();
   }
 
@@ -34,6 +35,16 @@ class Board {
     const tile = this.gameGrid[this.playerYIndex][this.playerXIndex];
     tile.setOrganism(new Player());
   }
+
+  spawnWolf() {
+    const wolf = new Wolf();
+    this.wolf.characterXIndex = Math.floor(Math.random() * 20);
+    this.wolf.characterYIndex = Math.floor(Math.random() * 20);
+    
+    const tile = this.gameGrid[this.wolf.characterYIndex][this.wolf.characterXIndex];
+    tile.setOrganism(wolf);
+  }
+
 
   refreshBoard() {
     for (let y = 0; y < this.numberOfColumns; y++) {

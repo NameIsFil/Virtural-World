@@ -1,6 +1,8 @@
 class Organism {
-  initiatve;
   divClass;
+  initiatve;
+  characterXIndex;
+  characterYIndex;
   action() {}
 }
 

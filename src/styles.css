@@ -9,7 +9,7 @@ body {
   justify-content: center;
 }
 
-#gameGrid {
+#game-grid {
   width: 800px;
   height: 800px;
   background-color: red;
@@ -31,5 +31,10 @@ body {
 
 .player-tile {
   background-image: url('face.png');
+  background-size: 38px;
+}
+
+.wolf-tile {
+  background-image: url('wolf.png');
   background-size: 38px;
 }
