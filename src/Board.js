@@ -8,10 +8,12 @@ class Board {
   numberOfColumns = 20;
   gameGrid = [];
   player;
+  wolf;
 
   constructor() {
     this.generateGrid();
     this.spawnPlayer();
+    this.spawnWolf();
     this.refreshBoard();
   }
 
@@ -30,18 +32,18 @@ class Board {
     const xIndex = Math.floor(Math.random() * 20);
     const yIndex = Math.floor(Math.random() * 20);
     this.player = new Player(xIndex, yIndex);
-    const tile = this.gameGrid[this.player.yIndex][this.player.xIndex]
+    const tile = this.gameGrid[this.player.yIndex][this.player.xIndex];
     tile.setOrganism(this.player);
-    console.log(this.player.yIndex)
   }
-  
-  spawnWolf() {
-    const wolf = new Wolf();
-    this.wolf.characterXIndex = Math.floor(Math.random() * 20);
-    this.wolf.characterYIndex = Math.floor(Math.random() * 20);
 
-    const tile = this.gameGrid[this.wolf.characterYIndex][this.wolf.characterXIndex];
-    tile.setOrganism(wolf);
+  spawnWolf() {
+    const xIndex = Math.floor(Math.random() * 20);
+    const yIndex = Math.floor(Math.random() * 20);
+    if (!this.gameGrid[yIndex][xIndex].classList.contains('player-tile')) {
+      this.wolf = new Wolf(xIndex, yIndex);
+      const tile = this.gameGrid[this.wolf.yIndex][this.wolf.xIndex];
+      tile.setOrganism(this.wolf);
+    }
   }
 
   refreshBoard() {
