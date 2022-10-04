@@ -7,13 +7,11 @@ class Board {
   numberOfRows = 20;
   numberOfColumns = 20;
   gameGrid = [];
-  playerXIndex;
-  playerYIndex;
+  player;
 
   constructor() {
     this.generateGrid();
     this.spawnPlayer();
-    this.spawnWolf()
     this.refreshBoard();
   }
 
@@ -29,22 +27,22 @@ class Board {
   }
 
   spawnPlayer() {
-    this.playerXIndex = Math.floor(Math.random() * 20);
-    this.playerYIndex = Math.floor(Math.random() * 20);
-
-    const tile = this.gameGrid[this.playerYIndex][this.playerXIndex];
-    tile.setOrganism(new Player());
+    const xIndex = Math.floor(Math.random() * 20);
+    const yIndex = Math.floor(Math.random() * 20);
+    this.player = new Player(xIndex, yIndex);
+    const tile = this.gameGrid[this.player.yIndex][this.player.xIndex]
+    tile.setOrganism(this.player);
+    console.log(this.player.yIndex)
   }
-
+  
   spawnWolf() {
     const wolf = new Wolf();
     this.wolf.characterXIndex = Math.floor(Math.random() * 20);
     this.wolf.characterYIndex = Math.floor(Math.random() * 20);
-    
+
     const tile = this.gameGrid[this.wolf.characterYIndex][this.wolf.characterXIndex];
     tile.setOrganism(wolf);
   }
-
 
   refreshBoard() {
     for (let y = 0; y < this.numberOfColumns; y++) {
@@ -58,84 +56,84 @@ class Board {
   movePlayer(keyboardKey) {
     //up
     if (keyboardKey.keyCode === 38) {
-      if (this.playerYIndex - 1 >= 0) {
-        const oldTile = this.gameGrid[this.playerYIndex][this.playerXIndex];
-        this.playerYIndex = this.playerYIndex - 1;
-        const newTile = this.gameGrid[this.playerYIndex][this.playerXIndex];
+      if (this.player.yIndex - 1 >= 0) {
+        const oldTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
+        this.player.yIndex = this.player.yIndex - 1;
+        const newTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
         newTile.setOrganism(oldTile.organism);
         oldTile.setOrganism(null);
       }
     }
     //right-up
     else if (keyboardKey.keyCode === 33) {
-      if (this.playerYIndex - 1 >= 0 && this.playerXIndex + 1 <= 19) {
-        const oldTile = this.gameGrid[this.playerYIndex][this.playerXIndex];
-        this.playerYIndex = this.playerYIndex - 1;
-        this.playerXIndex = this.playerXIndex + 1;
-        const newTile = this.gameGrid[this.playerYIndex][this.playerXIndex];
+      if (this.player.yIndex - 1 >= 0 && this.player.xIndex + 1 <= 19) {
+        const oldTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
+        this.player.yIndex = this.player.yIndex - 1;
+        this.player.xIndex = this.player.xIndex + 1;
+        const newTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
         newTile.setOrganism(oldTile.organism);
         oldTile.setOrganism(null);
       }
     }
     //right
     else if (keyboardKey.keyCode === 39) {
-      if (this.playerXIndex + 1 <= 19) {
-        const oldTile = this.gameGrid[this.playerYIndex][this.playerXIndex];
-        this.playerXIndex = this.playerXIndex + 1;
-        const newTile = this.gameGrid[this.playerYIndex][this.playerXIndex];
+      if (this.player.xIndex + 1 <= 19) {
+        const oldTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
+        this.player.xIndex = this.player.xIndex + 1;
+        const newTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
         newTile.setOrganism(oldTile.organism);
         oldTile.setOrganism(null);
       }
     }
     //right-down
     else if (keyboardKey.keyCode === 34) {
-      if (this.playerXIndex + 1 <= 19 && this.playerYIndex + 1 <= 19) {
-        const oldTile = this.gameGrid[this.playerYIndex][this.playerXIndex];
-        this.playerXIndex = this.playerXIndex + 1;
-        this.playerYIndex = this.playerYIndex + 1;
-        const newTile = this.gameGrid[this.playerYIndex][this.playerXIndex];
+      if (this.player.xIndex + 1 <= 19 && this.player.yIndex + 1 <= 19) {
+        const oldTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
+        this.player.xIndex = this.player.xIndex + 1;
+        this.player.yIndex = this.player.yIndex + 1;
+        const newTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
         newTile.setOrganism(oldTile.organism);
         oldTile.setOrganism(null);
       }
     }
     //down
     else if (keyboardKey.keyCode === 40) {
-      if (this.playerYIndex + 1 <= 19) {
-        const oldTile = this.gameGrid[this.playerYIndex][this.playerXIndex];
-        this.playerYIndex = this.playerYIndex + 1;
-        const newTile = this.gameGrid[this.playerYIndex][this.playerXIndex];
+      if (this.player.yIndex + 1 <= 19) {
+        const oldTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
+        this.player.yIndex = this.player.yIndex + 1;
+        const newTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
         newTile.setOrganism(oldTile.organism);
         oldTile.setOrganism(null);
       }
     }
     //left-down
     else if (keyboardKey.keyCode === 35) {
-      if (this.playerYIndex + 1 <= 19 && this.playerXIndex - 1 >= 0) {
-        const oldTile = this.gameGrid[this.playerYIndex][this.playerXIndex];
-        this.playerYIndex = this.playerYIndex + 1;
-        this.playerXIndex = this.playerXIndex - 1;
-        const newTile = this.gameGrid[this.playerYIndex][this.playerXIndex];
+      if (this.player.yIndex + 1 <= 19 && this.player.xIndex - 1 >= 0) {
+        const oldTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
+        this.player.yIndex = this.player.yIndex + 1;
+        this.player.xIndex = this.player.xIndex - 1;
+        const newTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
         newTile.setOrganism(oldTile.organism);
         oldTile.setOrganism(null);
       }
     }
     //left
     else if (keyboardKey.keyCode === 37) {
-      if (this.playerXIndex - 1 >= 0) {
-        const oldTile = this.gameGrid[this.playerYIndex][this.playerXIndex];
-        this.playerXIndex = this.playerXIndex - 1;
-        const newTile = this.gameGrid[this.playerYIndex][this.playerXIndex];
+      if (this.player.xIndex - 1 >= 0) {
+        const oldTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
+        this.player.xIndex = this.player.xIndex - 1;
+        const newTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
         newTile.setOrganism(oldTile.organism);
         oldTile.setOrganism(null);
       }
     }
     //left-up
     else if (keyboardKey.keyCode === 36) {
-      if (this.playerXIndex - 1 >= 0 && this.playerYIndex - 1 >= 0) {
-        const oldTile = this.gameGrid[this.playerYIndex][this.playerXIndex];
-        this.playerXIndex = this.playerXIndex - 1;
-        this.playerYIndex = this.playerYIndex - 1;
-        const newTile = this.gameGrid[this.playerYIndex][this.playerXIndex];
+      if (this.player.xIndex - 1 >= 0 && this.player.yIndex - 1 >= 0) {
+        const oldTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
+        this.player.xIndex = this.player.xIndex - 1;
+        this.player.yIndex = this.player.yIndex - 1;
+        const newTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
         newTile.setOrganism(oldTile.organism);
         oldTile.setOrganism(null);
       }

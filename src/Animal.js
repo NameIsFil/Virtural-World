@@ -1,10 +1,11 @@
 import { Organism } from './Organism';
 
 class Animal extends Organism {
+  constructor(xIndex, yIndex) {
+    super(xIndex, yIndex);
+  }
   fight() {}
   mate() {}
 }
-
-const newAnimal = new Animal();
 
 export { Animal };

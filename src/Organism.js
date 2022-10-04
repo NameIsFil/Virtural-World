@@ -1,9 +1,13 @@
 class Organism {
   divClass;
   initiatve;
-  characterXIndex;
-  characterYIndex;
-  action() {}
+  xIndex;
+  yIndex;
+
+  constructor(xIndex, yIndex) {
+    this.xIndex = xIndex;
+    this.yIndex = yIndex;
+  }
 }
 
 export { Organism };
