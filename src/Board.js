@@ -66,7 +66,7 @@ class Board {
       for (let x = 0; x < this.numberOfRows; x++) {
         if (this.gameGrid[y][x].divElement.classList.contains('wolf-tile')) {
           const randomNumber = Math.floor(Math.random() * 8) + 1;
-          this.moveWolf(this.wolf, randomNumber);
+          this.moveOrganism(this.wolf, randomNumber);
         }
       }
     }
@@ -161,7 +161,7 @@ class Board {
     this.moveOrganisms();
   }
 
-  moveWolf(organismTile, randomNumber) {
+  moveOrganism(organismTile, randomNumber) {
     //up
     if (randomNumber === 1) {
       if (organismTile.yIndex - 1 >= 0) {
