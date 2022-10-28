@@ -3,7 +3,6 @@ class Organism {
   initiatve;
   xIndex;
   yIndex;
-  move;
   id;
 
   constructor(xIndex, yIndex, board) {

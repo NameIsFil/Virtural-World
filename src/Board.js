@@ -16,6 +16,7 @@ class Board {
     this.spawnPlayer();
     this.spawnWolf();
     this.refreshBoard();
+    this.playTurn();
   }
 
   generateGrid() {
@@ -44,7 +45,7 @@ class Board {
 
   spawnPlayer() {
     const { xIndex, yIndex } = this.getRandomFreeCoordinates();
-    this.player = new Player(xIndex, yIndex);
+    this.player = new Player(xIndex, yIndex, this);
     const tile = this.gameGrid[this.player.yIndex][this.player.xIndex];
     tile.setOrganism(this.player);
     this.organismsArray.push(this.player);
@@ -52,7 +53,7 @@ class Board {
 
   spawnWolf() {
     const { xIndex, yIndex } = this.getRandomFreeCoordinates();
-    this.wolf = new Wolf(xIndex, yIndex);
+    this.wolf = new Wolf(xIndex, yIndex, this);
     const tile = this.gameGrid[this.wolf.yIndex][this.wolf.xIndex];
     tile.setOrganism(this.wolf);
     this.organismsArray.push(this.wolf);
@@ -62,17 +63,17 @@ class Board {
     return this.gameGrid[yIndex][xIndex];
   }
 
-  playTurn() {
+  async playTurn() {
     const sortedOrganisms = this.organismsArray.sort(
       (firstOrganism, secondOrganism) => {
         return secondOrganism.initiatve - firstOrganism.initiatve;
       },
     );
 
-    sortedOrganisms.forEach((organism) => {
-      organism.move();
-    });
-
+    for (let i = 0; i < sortedOrganisms.length; i++) {
+      const organism = sortedOrganisms[i];
+      await organism.move();
+    }
     this.refreshBoard();
   }
 
@@ -80,6 +81,9 @@ class Board {
     for (let y = 0; y < this.numberOfColumns; y++) {
       for (let x = 0; x < this.numberOfRows; x++) {
         const tile = this.gameGrid[y][x];
+        if (tile.organism) {
+          console.log(tile.organism);
+        }
         tile.refreshDiv();
       }
     }
@@ -88,192 +92,6 @@ class Board {
   setGameGridTileOrganism(organism, xIndex, yIndex) {
     const tile = this.gameGrid[yIndex][xIndex];
     tile.setOrganism(organism);
-  }
-
-  moveOrganisms() {
-    for (let y = 0; y < this.numberOfColumns; y++) {
-      for (let x = 0; x < this.numberOfRows; x++) {
-        if (this.gameGrid[y][x].divElement.classList.contains('wolf-tile')) {
-          this.moveOrganism(this.wolf, randomNumber);
-        }
-      }
-    }
-  }
-
-  movePlayer(keyboardKey) {
-    //up
-    if (keyboardKey.keyCode === 38) {
-      if (this.player.yIndex - 1 >= 0) {
-        const oldTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
-        this.player.yIndex = this.player.yIndex - 1;
-        const newTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
-        newTile.setOrganism(oldTile.organism);
-        oldTile.setOrganism(null);
-      }
-    }
-    //right-up
-    else if (keyboardKey.keyCode === 33) {
-      if (this.player.yIndex - 1 >= 0 && this.player.xIndex + 1 <= 19) {
-        const oldTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
-        this.player.yIndex = this.player.yIndex - 1;
-        this.player.xIndex = this.player.xIndex + 1;
-        const newTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
-        newTile.setOrganism(oldTile.organism);
-        oldTile.setOrganism(null);
-      }
-    }
-    //right
-    else if (keyboardKey.keyCode === 39) {
-      if (this.player.xIndex + 1 <= 19) {
-        const oldTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
-        this.player.xIndex = this.player.xIndex + 1;
-        const newTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
-        newTile.setOrganism(oldTile.organism);
-        oldTile.setOrganism(null);
-      }
-    }
-    //right-down
-    else if (keyboardKey.keyCode === 34) {
-      if (this.player.xIndex + 1 <= 19 && this.player.yIndex + 1 <= 19) {
-        const oldTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
-        this.player.xIndex = this.player.xIndex + 1;
-        this.player.yIndex = this.player.yIndex + 1;
-        const newTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
-        newTile.setOrganism(oldTile.organism);
-        oldTile.setOrganism(null);
-      }
-    }
-    //down
-    else if (keyboardKey.keyCode === 40) {
-      if (this.player.yIndex + 1 <= 19) {
-        const oldTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
-        this.player.yIndex = this.player.yIndex + 1;
-        const newTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
-        newTile.setOrganism(oldTile.organism);
-        oldTile.setOrganism(null);
-      }
-    }
-    //left-down
-    else if (keyboardKey.keyCode === 35) {
-      if (this.player.yIndex + 1 <= 19 && this.player.xIndex - 1 >= 0) {
-        const oldTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
-        this.player.yIndex = this.player.yIndex + 1;
-        this.player.xIndex = this.player.xIndex - 1;
-        const newTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
-        newTile.setOrganism(oldTile.organism);
-        oldTile.setOrganism(null);
-      }
-    }
-    //left
-    else if (keyboardKey.keyCode === 37) {
-      if (this.player.xIndex - 1 >= 0) {
-        const oldTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
-        this.player.xIndex = this.player.xIndex - 1;
-        const newTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
-        newTile.setOrganism(oldTile.organism);
-        oldTile.setOrganism(null);
-      }
-    }
-    //left-up
-    else if (keyboardKey.keyCode === 36) {
-      if (this.player.xIndex - 1 >= 0 && this.player.yIndex - 1 >= 0) {
-        const oldTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
-        this.player.xIndex = this.player.xIndex - 1;
-        this.player.yIndex = this.player.yIndex - 1;
-        const newTile = this.gameGrid[this.player.yIndex][this.player.xIndex];
-        newTile.setOrganism(oldTile.organism);
-        oldTile.setOrganism(null);
-      }
-    }
-    this.refreshBoard();
-    this.moveOrganisms();
-  }
-
-  moveOrganism(organismTile, randomNumber) {
-    //up
-    if (randomNumber === 1) {
-      if (organismTile.yIndex - 1 >= 0) {
-        const oldTile = this.gameGrid[organismTile.yIndex][organismTile.xIndex];
-        organismTile.yIndex = organismTile.yIndex - 1;
-        const newTile = this.gameGrid[organismTile.yIndex][organismTile.xIndex];
-        newTile.setOrganism(oldTile.organism);
-        oldTile.setOrganism(null);
-      }
-    }
-    //right-up
-    else if (randomNumber === 2) {
-      if (organismTile.yIndex - 1 >= 0 && organismTile.xIndex + 1 <= 19) {
-        const oldTile = this.gameGrid[organismTile.yIndex][organismTile.xIndex];
-        organismTile.yIndex = organismTile.yIndex - 1;
-        organismTile.xIndex = organismTile.xIndex + 1;
-        const newTile = this.gameGrid[organismTile.yIndex][organismTile.xIndex];
-        newTile.setOrganism(oldTile.organism);
-        oldTile.setOrganism(null);
-      }
-    }
-    //right
-    else if (randomNumber === 3) {
-      if (organismTile.xIndex + 1 <= 19) {
-        const oldTile = this.gameGrid[organismTile.yIndex][organismTile.xIndex];
-        organismTile.xIndex = organismTile.xIndex + 1;
-        const newTile = this.gameGrid[organismTile.yIndex][organismTile.xIndex];
-        newTile.setOrganism(oldTile.organism);
-        oldTile.setOrganism(null);
-      }
-    }
-    //right-down
-    else if (randomNumber === 4) {
-      if (organismTile.xIndex + 1 <= 19 && organismTile.yIndex + 1 <= 19) {
-        const oldTile = this.gameGrid[organismTile.yIndex][organismTile.xIndex];
-        organismTile.xIndex = organismTile.xIndex + 1;
-        organismTile.yIndex = organismTile.yIndex + 1;
-        const newTile = this.gameGrid[organismTile.yIndex][organismTile.xIndex];
-        newTile.setOrganism(oldTile.organism);
-        oldTile.setOrganism(null);
-      }
-    }
-    //down
-    else if (randomNumber === 5) {
-      if (organismTile.yIndex + 1 <= 19) {
-        const oldTile = this.gameGrid[organismTile.yIndex][organismTile.xIndex];
-        organismTile.yIndex = organismTile.yIndex + 1;
-        const newTile = this.gameGrid[organismTile.yIndex][organismTile.xIndex];
-        newTile.setOrganism(oldTile.organism);
-        oldTile.setOrganism(null);
-      }
-    }
-    //left-down
-    else if (randomNumber === 6) {
-      if (organismTile.yIndex + 1 <= 19 && organismTile.xIndex - 1 >= 0) {
-        const oldTile = this.gameGrid[organismTile.yIndex][organismTile.xIndex];
-        organismTile.yIndex = organismTile.yIndex + 1;
-        organismTile.xIndex = organismTile.xIndex - 1;
-        const newTile = this.gameGrid[organismTile.yIndex][organismTile.xIndex];
-        newTile.setOrganism(oldTile.organism);
-        oldTile.setOrganism(null);
-      }
-    }
-    //left
-    else if (randomNumber === 7) {
-      if (organismTile.xIndex - 1 >= 0) {
-        const oldTile = this.gameGrid[organismTile.yIndex][organismTile.xIndex];
-        organismTile.xIndex = organismTile.xIndex - 1;
-        const newTile = this.gameGrid[organismTile.yIndex][organismTile.xIndex];
-        newTile.setOrganism(oldTile.organism);
-        oldTile.setOrganism(null);
-      }
-    }
-    //left-up
-    else if (randomNumber === 8) {
-      if (organismTile.xIndex - 1 >= 0 && organismTile.yIndex - 1 >= 0) {
-        const oldTile = this.gameGrid[organismTile.yIndex][organismTile.xIndex];
-        organismTile.xIndex = organismTile.xIndex - 1;
-        organismTile.yIndex = organismTile.yIndex - 1;
-        const newTile = this.gameGrid[organismTile.yIndex][organismTile.xIndex];
-        newTile.setOrganism(oldTile.organism);
-        oldTile.setOrganism(null);
-      }
-    }
   }
 }
 
