@@ -3,10 +3,13 @@ class Organism {
   initiatve;
   xIndex;
   yIndex;
+  move;
+  id;
 
-  constructor(xIndex, yIndex) {
+  constructor(xIndex, yIndex, board) {
     this.xIndex = xIndex;
     this.yIndex = yIndex;
+    this.board = board;
   }
 }
 

@@ -7,6 +7,7 @@ class Board {
   numberOfRows = 20;
   numberOfColumns = 20;
   gameGrid = [];
+  organismsArray = [];
   player;
   wolf;
 
@@ -28,28 +29,51 @@ class Board {
     }
   }
 
-  spawnPlayer() {
+  getRandomFreeCoordinates() {
     const xIndex = Math.floor(Math.random() * 20);
     const yIndex = Math.floor(Math.random() * 20);
+
+    if (this.gameGrid[yIndex][xIndex]) {
+      return {
+        xIndex,
+        yIndex,
+      };
+    }
+    return this.getRandomFreeCoordinates();
+  }
+
+  spawnPlayer() {
+    const { xIndex, yIndex } = this.getRandomFreeCoordinates();
     this.player = new Player(xIndex, yIndex);
     const tile = this.gameGrid[this.player.yIndex][this.player.xIndex];
     tile.setOrganism(this.player);
+    this.organismsArray.push(this.player);
   }
 
   spawnWolf() {
-    const xIndex = Math.floor(Math.random() * 20);
-    const yIndex = Math.floor(Math.random() * 20);
-    if (
-      !this.gameGrid[yIndex][xIndex].divElement.classList.contains(
-        'player-tile',
-      )
-    ) {
-      this.wolf = new Wolf(xIndex, yIndex);
-      const tile = this.gameGrid[this.wolf.yIndex][this.wolf.xIndex];
-      tile.setOrganism(this.wolf);
-    } else {
-      this.spawnWolf();
-    }
+    const { xIndex, yIndex } = this.getRandomFreeCoordinates();
+    this.wolf = new Wolf(xIndex, yIndex);
+    const tile = this.gameGrid[this.wolf.yIndex][this.wolf.xIndex];
+    tile.setOrganism(this.wolf);
+    this.organismsArray.push(this.wolf);
+  }
+
+  getTileWithCoordinates({ xIndex, yIndex }) {
+    return this.gameGrid[yIndex][xIndex];
+  }
+
+  playTurn() {
+    const sortedOrganisms = this.organismsArray.sort(
+      (firstOrganism, secondOrganism) => {
+        return secondOrganism.initiatve - firstOrganism.initiatve;
+      },
+    );
+
+    sortedOrganisms.forEach((organism) => {
+      organism.move();
+    });
+
+    this.refreshBoard();
   }
 
   refreshBoard() {
@@ -61,11 +85,15 @@ class Board {
     }
   }
 
+  setGameGridTileOrganism(organism, xIndex, yIndex) {
+    const tile = this.gameGrid[yIndex][xIndex];
+    tile.setOrganism(organism);
+  }
+
   moveOrganisms() {
     for (let y = 0; y < this.numberOfColumns; y++) {
       for (let x = 0; x < this.numberOfRows; x++) {
         if (this.gameGrid[y][x].divElement.classList.contains('wolf-tile')) {
-          const randomNumber = Math.floor(Math.random() * 8) + 1;
           this.moveOrganism(this.wolf, randomNumber);
         }
       }
