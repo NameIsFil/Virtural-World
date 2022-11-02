@@ -69,12 +69,14 @@ class Board {
         return secondOrganism.initiatve - firstOrganism.initiatve;
       },
     );
-
+  
     for (let i = 0; i < sortedOrganisms.length; i++) {
       const organism = sortedOrganisms[i];
       await organism.move();
     }
     this.refreshBoard();
+  
+    this.playTurn();
   }
 
   refreshBoard() {

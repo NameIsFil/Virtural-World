@@ -1,6 +1,6 @@
 class Organism {
   divClass;
-  initiatve;
+  initiative;
   xIndex;
   yIndex;
   id;

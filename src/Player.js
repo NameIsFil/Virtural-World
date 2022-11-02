@@ -2,7 +2,9 @@ import { Animal } from './Animal';
 
 class Player extends Animal {
   divClass = 'player-tile';
-  initiatve = 4;
+  initiative = 4;
+
+  movementResolveFunction;
 
   constructor(xIndex, yIndex, board) {
     super(xIndex, yIndex, board);
@@ -142,12 +144,15 @@ class Player extends Animal {
       }
     }
     removeEventListener('keyup', this.onButtonClick);
+    if (this.movementResolveFunction) {
+      this.movementResolveFunction();
+    }
   }
 
   move() {
     return new Promise((resolve) => {
-      document.addEventListener('keyup', (event) => {});
-      resolve();
+      this.movementResolveFunction = resolve;
+      document.addEventListener('keyup', this.onButtonClick);
     });
   }
 }
