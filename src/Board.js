@@ -1,6 +1,11 @@
 import { Tile } from './Tile';
 import { Player } from './Player';
 import { Wolf } from './Wolf';
+import { Sheep } from './Sheep';
+import { Fox } from './Fox';
+import { Antelope } from './Antelope';
+import { Turtle } from './Turtle';
+
 
 class Board {
   visibleGameGrid = document.querySelector('#game-grid');
@@ -10,11 +15,18 @@ class Board {
   organismsArray = [];
   player;
   wolf;
+  sheep;
+  antelope;
+  turtle;
 
   constructor() {
     this.generateGrid();
     this.spawnPlayer();
     this.spawnWolf();
+    this.spawnSheep();
+    this.spawnFox();
+    this.spawnAntelope();
+    this.spawnTurtle();
     this.refreshBoard();
     this.playTurn();
   }
@@ -57,6 +69,38 @@ class Board {
     const tile = this.gameGrid[this.wolf.yIndex][this.wolf.xIndex];
     tile.setOrganism(this.wolf);
     this.organismsArray.push(this.wolf);
+  }
+
+  spawnSheep() {
+    const { xIndex, yIndex } = this.getRandomFreeCoordinates();
+    this.sheep = new Sheep(xIndex, yIndex, this);
+    const tile = this.gameGrid[this.sheep.yIndex][this.sheep.xIndex];
+    tile.setOrganism(this.sheep);
+    this.organismsArray.push(this.sheep);
+  }
+
+  spawnFox() {
+    const { xIndex, yIndex } = this.getRandomFreeCoordinates();
+    this.fox = new Fox(xIndex, yIndex, this);
+    const tile = this.gameGrid[this.fox.yIndex][this.fox.xIndex];
+    tile.setOrganism(this.fox);
+    this.organismsArray.push(this.fox);
+  }
+
+  spawnAntelope() {
+    const { xIndex, yIndex } = this.getRandomFreeCoordinates();
+    this.antelope = new Antelope(xIndex, yIndex, this);
+    const tile = this.gameGrid[this.antelope.yIndex][this.antelope.xIndex];
+    tile.setOrganism(this.antelope);
+    this.organismsArray.push(this.antelope);
+  }
+
+  spawnTurtle() {
+    const { xIndex, yIndex } = this.getRandomFreeCoordinates();
+    this.turtle = new Turtle(xIndex, yIndex, this);
+    const tile = this.gameGrid[this.turtle.yIndex][this.turtle.xIndex];
+    tile.setOrganism(this.turtle);
+    this.organismsArray.push(this.turtle);
   }
 
   getTileWithCoordinates({ xIndex, yIndex }) {

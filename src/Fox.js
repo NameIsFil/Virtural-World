@@ -1,13 +1,13 @@
 import { Animal } from './Animal';
 
-class Wolf extends Animal {
-  divClass = 'wolf-tile';
-  initiative = 5;
-  strength = 9;
+class Fox extends Animal {
+  divClass = 'fox-tile';
+  initiative = 7;
+  strength = 4;
 
   constructor(xIndex, yIndex, board) {
     super(xIndex, yIndex, board);
   }
 }
 
-export { Wolf };
+export { Fox };

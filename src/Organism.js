@@ -1,6 +1,7 @@
 class Organism {
   divClass;
   initiative;
+  strength;
   xIndex;
   yIndex;
   id;

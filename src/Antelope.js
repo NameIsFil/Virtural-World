@@ -1,6 +1,10 @@
-import { Organism } from './Organism';
+import { Animal } from './Animal';
 
-class Animal extends Organism {
+class Antelope extends Animal {
+  divClass = 'antelope-tile';
+  initiative = 4;
+  strength = 4;
+
   constructor(xIndex, yIndex, board) {
     super(xIndex, yIndex, board);
   }
@@ -10,12 +14,12 @@ class Animal extends Organism {
     return new Promise((resolve) => {
       //up
       if (randomNumber === 1) {
-        if (this.yIndex - 1 >= 0) {
+        if (this.yIndex - 2 >= 0) {
           const oldTile = this.board.getTileWithCoordinates({
             xIndex: this.xIndex,
             yIndex: this.yIndex,
           });
-          this.yIndex = this.yIndex - 1;
+          this.yIndex = this.yIndex - 2;
           const newTile = this.board.getTileWithCoordinates({
             xIndex: this.xIndex,
             yIndex: this.yIndex,
@@ -28,13 +32,13 @@ class Animal extends Organism {
       }
       //right-up
       else if (randomNumber === 2) {
-        if (this.yIndex - 1 >= 0 && this.xIndex + 1 <= 19) {
+        if (this.yIndex - 2 >= 0 && this.xIndex + 2 <= 19) {
           const oldTile = this.board.getTileWithCoordinates({
             xIndex: this.xIndex,
             yIndex: this.yIndex,
           });
-          this.yIndex = this.yIndex - 1;
-          this.xIndex = this.xIndex + 1;
+          this.yIndex = this.yIndex - 2;
+          this.xIndex = this.xIndex + 2;
           const newTile = this.board.getTileWithCoordinates({
             xIndex: this.xIndex,
             yIndex: this.yIndex,
@@ -47,12 +51,12 @@ class Animal extends Organism {
       }
       //right
       else if (randomNumber === 3) {
-        if (this.xIndex + 1 <= 19) {
+        if (this.xIndex + 2 <= 19) {
           const oldTile = this.board.getTileWithCoordinates({
             xIndex: this.xIndex,
             yIndex: this.yIndex,
           });
-          this.xIndex = this.xIndex + 1;
+          this.xIndex = this.xIndex + 2;
           const newTile = this.board.getTileWithCoordinates({
             xIndex: this.xIndex,
             yIndex: this.yIndex,
@@ -65,13 +69,13 @@ class Animal extends Organism {
       }
       //right-down
       else if (randomNumber === 4) {
-        if (this.xIndex + 1 <= 19 && this.yIndex + 1 <= 19) {
+        if (this.xIndex + 2 <= 19 && this.yIndex + 2 <= 19) {
           const oldTile = this.board.getTileWithCoordinates({
             xIndex: this.xIndex,
             yIndex: this.yIndex,
           });
-          this.xIndex = this.xIndex + 1;
-          this.yIndex = this.yIndex + 1;
+          this.xIndex = this.xIndex + 2;
+          this.yIndex = this.yIndex + 2;
           const newTile = this.board.getTileWithCoordinates({
             xIndex: this.xIndex,
             yIndex: this.yIndex,
@@ -84,12 +88,12 @@ class Animal extends Organism {
       }
       //down
       else if (randomNumber === 5) {
-        if (this.yIndex + 1 <= 19) {
+        if (this.yIndex + 2 <= 19) {
           const oldTile = this.board.getTileWithCoordinates({
             xIndex: this.xIndex,
             yIndex: this.yIndex,
           });
-          this.yIndex = this.yIndex + 1;
+          this.yIndex = this.yIndex + 2;
           const newTile = this.board.getTileWithCoordinates({
             xIndex: this.xIndex,
             yIndex: this.yIndex,
@@ -102,13 +106,13 @@ class Animal extends Organism {
       }
       //left-down
       else if (randomNumber === 6) {
-        if (this.yIndex + 1 <= 19 && this.xIndex - 1 >= 0) {
+        if (this.yIndex + 2 <= 19 && this.xIndex - 2 >= 0) {
           const oldTile = this.board.getTileWithCoordinates({
             xIndex: this.xIndex,
             yIndex: this.yIndex,
           });
-          this.yIndex = this.yIndex + 1;
-          this.xIndex = this.xIndex - 1;
+          this.yIndex = this.yIndex + 2;
+          this.xIndex = this.xIndex - 2;
           const newTile = this.board.getTileWithCoordinates({
             xIndex: this.xIndex,
             yIndex: this.yIndex,
@@ -121,12 +125,12 @@ class Animal extends Organism {
       }
       //left
       else if (randomNumber === 7) {
-        if (this.xIndex - 1 >= 0) {
+        if (this.xIndex - 2 >= 0) {
           const oldTile = this.board.getTileWithCoordinates({
             xIndex: this.xIndex,
             yIndex: this.yIndex,
           });
-          this.xIndex = this.xIndex - 1;
+          this.xIndex = this.xIndex - 2;
           const newTile = this.board.getTileWithCoordinates({
             xIndex: this.xIndex,
             yIndex: this.yIndex,
@@ -139,13 +143,13 @@ class Animal extends Organism {
       }
       //left-up
       else if (randomNumber === 8) {
-        if (this.xIndex - 1 >= 0 && this.yIndex - 1 >= 0) {
+        if (this.xIndex - 2 >= 0 && this.yIndex - 2 >= 0) {
           const oldTile = this.board.getTileWithCoordinates({
             xIndex: this.xIndex,
             yIndex: this.yIndex,
           });
-          this.xIndex = this.xIndex - 1;
-          this.yIndex = this.yIndex - 1;
+          this.xIndex = this.xIndex - 2;
+          this.yIndex = this.yIndex - 2;
           const newTile = this.board.getTileWithCoordinates({
             xIndex: this.xIndex,
             yIndex: this.yIndex,
@@ -161,4 +165,4 @@ class Animal extends Organism {
   }
 }
 
-export { Animal };
+export { Antelope };

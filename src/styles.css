@@ -38,3 +38,23 @@ body {
   background-image: url('wolf.png');
   background-size: 38px;
 }
+
+.sheep-tile {
+  background-image: url('sheep.png');
+  background-size: 38px;
+}
+
+.fox-tile {
+  background-image: url('fox.png');
+  background-size: 38px;
+}
+
+.antelope-tile {
+  background-image: url('deer.png');
+  background-size: 38px;
+}
+
+.turtle-tile {
+  background-image: url('turtle2.png');
+  background-size: 38px;
+}
