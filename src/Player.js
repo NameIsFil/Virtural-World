@@ -84,6 +84,9 @@ class Player extends Animal {
       xIndex: this.xIndex,
       yIndex: this.yIndex,
     });
+    if (newTile.organism) {
+      this.board.removeOrganism(newTile.organism);
+    }
     newTile.setOrganism(oldTile.organism);
     oldTile.setOrganism(null);
 

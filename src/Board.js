@@ -102,6 +102,16 @@ class Board {
     this.organismsArray.push(this.turtle);
   }
 
+  removeOrganism(organismToFind) {
+    const elementIndex = this.organismsArray.findIndex((organism) => {
+      return organism === organismToFind;
+    });
+    if (elementIndex === -1) {
+      return;
+    }
+    this.organismsArray.splice(elementIndex, 1);
+  }
+
   getTileWithCoordinates({ xIndex, yIndex }) {
     return this.gameGrid[yIndex][xIndex];
   }
@@ -118,7 +128,7 @@ class Board {
       await organism.move();
     }
     this.refreshBoard();
-
+    console.log(this.organismsArray)
     this.playTurn();
   }
 
@@ -126,9 +136,6 @@ class Board {
     for (let y = 0; y < this.numberOfColumns; y++) {
       for (let x = 0; x < this.numberOfRows; x++) {
         const tile = this.gameGrid[y][x];
-        if (tile.organism) {
-          console.log(tile.organism);
-        }
         tile.refreshDiv();
       }
     }

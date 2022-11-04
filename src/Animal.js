@@ -61,7 +61,7 @@ class Animal extends Organism {
     return new Promise((resolve) => {
       const { xIndex, yIndex } = this.getNewCoordinates(randomNumber);
       if (yIndex < 0 || yIndex > 19 || xIndex > 19 || xIndex < 0) {
-        return this.move();
+        return resolve();
       }
       const oldTile = this.board.getTileWithCoordinates({
         xIndex: this.xIndex,
@@ -74,14 +74,10 @@ class Animal extends Organism {
         yIndex: this.yIndex,
       });
       if (newTile.organism) {
-        if (newTile.organism.strength > oldTile.organism.strength) {
-          newTile.setOrganism(oldTile.organism);
-          oldTile.setOrganism(oldTile.organism);
-        }
-      } else {
-        newTile.setOrganism(oldTile.organism);
-        oldTile.setOrganism(null);
+        this.board.removeOrganism(newTile.organism);
       }
+      newTile.setOrganism(oldTile.organism);
+      oldTile.setOrganism(null);
       resolve();
     });
   }
