@@ -64,8 +64,12 @@ class Player extends Animal {
   }
 
   onButtonClick(event) {
-    const { xIndex, yIndex } = this.getNewCoordinates(event.keyCode);
-    if (yIndex < 0 || xIndex >= 20) {
+    const newCoordinates = this.getNewCoordinates(event.keyCode);
+    if (!newCoordinates) {
+      return;
+    }
+    const { xIndex, yIndex } = newCoordinates;
+    if (yIndex < 0 || yIndex > 19 || xIndex > 19 || xIndex < 0) {
       return;
     }
 

@@ -5,156 +5,82 @@ class Animal extends Organism {
     super(xIndex, yIndex, board);
   }
 
+  getNewCoordinates(randomNumber) {
+    if (randomNumber === 1) {
+      return {
+        xIndex: this.xIndex,
+        yIndex: this.yIndex - 1,
+      };
+    }
+    if (randomNumber === 2) {
+      return {
+        xIndex: this.xIndex + 1,
+        yIndex: this.yIndex - 1,
+      };
+    }
+    if (randomNumber === 3) {
+      return {
+        xIndex: this.xIndex + 1,
+        yIndex: this.yIndex,
+      };
+    }
+    if (randomNumber === 4) {
+      return {
+        xIndex: this.xIndex + 1,
+        yIndex: this.yIndex + 1,
+      };
+    }
+    if (randomNumber === 5) {
+      return {
+        xIndex: this.xIndex,
+        yIndex: this.yIndex + 1,
+      };
+    }
+    if (randomNumber === 6) {
+      return {
+        xIndex: this.xIndex - 1,
+        yIndex: this.yIndex + 1,
+      };
+    }
+    if (randomNumber === 7) {
+      return {
+        xIndex: this.xIndex - 1,
+        yIndex: this.yIndex,
+      };
+    }
+    if (randomNumber === 8) {
+      return {
+        xIndex: this.xIndex - 1,
+        yIndex: this.yIndex - 1,
+      };
+    }
+  }
+
   move() {
     const randomNumber = Math.floor(Math.random() * 8) + 1;
     return new Promise((resolve) => {
-      //up
-      if (randomNumber === 1) {
-        if (this.yIndex - 1 >= 0) {
-          const oldTile = this.board.getTileWithCoordinates({
-            xIndex: this.xIndex,
-            yIndex: this.yIndex,
-          });
-          this.yIndex = this.yIndex - 1;
-          const newTile = this.board.getTileWithCoordinates({
-            xIndex: this.xIndex,
-            yIndex: this.yIndex,
-          });
-          newTile.setOrganism(oldTile.organism);
-          oldTile.setOrganism(null);
-        } else {
-          this.move();
-        }
+      const { xIndex, yIndex } = this.getNewCoordinates(randomNumber);
+      if (yIndex < 0 || yIndex > 19 || xIndex > 19 || xIndex < 0) {
+        return this.move();
       }
-      //right-up
-      else if (randomNumber === 2) {
-        if (this.yIndex - 1 >= 0 && this.xIndex + 1 <= 19) {
-          const oldTile = this.board.getTileWithCoordinates({
-            xIndex: this.xIndex,
-            yIndex: this.yIndex,
-          });
-          this.yIndex = this.yIndex - 1;
-          this.xIndex = this.xIndex + 1;
-          const newTile = this.board.getTileWithCoordinates({
-            xIndex: this.xIndex,
-            yIndex: this.yIndex,
-          });
+      const oldTile = this.board.getTileWithCoordinates({
+        xIndex: this.xIndex,
+        yIndex: this.yIndex,
+      });
+      this.xIndex = xIndex;
+      this.yIndex = yIndex;
+      const newTile = this.board.getTileWithCoordinates({
+        xIndex: this.xIndex,
+        yIndex: this.yIndex,
+      });
+      if (newTile.organism) {
+        if (newTile.organism.strength > oldTile.organism.strength) {
           newTile.setOrganism(oldTile.organism);
-          oldTile.setOrganism(null);
-        } else {
-          this.move();
+          oldTile.setOrganism(oldTile.organism);
         }
-      }
-      //right
-      else if (randomNumber === 3) {
-        if (this.xIndex + 1 <= 19) {
-          const oldTile = this.board.getTileWithCoordinates({
-            xIndex: this.xIndex,
-            yIndex: this.yIndex,
-          });
-          this.xIndex = this.xIndex + 1;
-          const newTile = this.board.getTileWithCoordinates({
-            xIndex: this.xIndex,
-            yIndex: this.yIndex,
-          });
-          newTile.setOrganism(oldTile.organism);
-          oldTile.setOrganism(null);
-        } else {
-          this.move();
-        }
-      }
-      //right-down
-      else if (randomNumber === 4) {
-        if (this.xIndex + 1 <= 19 && this.yIndex + 1 <= 19) {
-          const oldTile = this.board.getTileWithCoordinates({
-            xIndex: this.xIndex,
-            yIndex: this.yIndex,
-          });
-          this.xIndex = this.xIndex + 1;
-          this.yIndex = this.yIndex + 1;
-          const newTile = this.board.getTileWithCoordinates({
-            xIndex: this.xIndex,
-            yIndex: this.yIndex,
-          });
-          newTile.setOrganism(oldTile.organism);
-          oldTile.setOrganism(null);
-        } else {
-          this.move();
-        }
-      }
-      //down
-      else if (randomNumber === 5) {
-        if (this.yIndex + 1 <= 19) {
-          const oldTile = this.board.getTileWithCoordinates({
-            xIndex: this.xIndex,
-            yIndex: this.yIndex,
-          });
-          this.yIndex = this.yIndex + 1;
-          const newTile = this.board.getTileWithCoordinates({
-            xIndex: this.xIndex,
-            yIndex: this.yIndex,
-          });
-          newTile.setOrganism(oldTile.organism);
-          oldTile.setOrganism(null);
-        } else {
-          this.move();
-        }
-      }
-      //left-down
-      else if (randomNumber === 6) {
-        if (this.yIndex + 1 <= 19 && this.xIndex - 1 >= 0) {
-          const oldTile = this.board.getTileWithCoordinates({
-            xIndex: this.xIndex,
-            yIndex: this.yIndex,
-          });
-          this.yIndex = this.yIndex + 1;
-          this.xIndex = this.xIndex - 1;
-          const newTile = this.board.getTileWithCoordinates({
-            xIndex: this.xIndex,
-            yIndex: this.yIndex,
-          });
-          newTile.setOrganism(oldTile.organism);
-          oldTile.setOrganism(null);
-        } else {
-          this.move();
-        }
-      }
-      //left
-      else if (randomNumber === 7) {
-        if (this.xIndex - 1 >= 0) {
-          const oldTile = this.board.getTileWithCoordinates({
-            xIndex: this.xIndex,
-            yIndex: this.yIndex,
-          });
-          this.xIndex = this.xIndex - 1;
-          const newTile = this.board.getTileWithCoordinates({
-            xIndex: this.xIndex,
-            yIndex: this.yIndex,
-          });
-          newTile.setOrganism(oldTile.organism);
-          oldTile.setOrganism(null);
-        } else {
-          this.move();
-        }
-      }
-      //left-up
-      else if (randomNumber === 8) {
-        if (this.xIndex - 1 >= 0 && this.yIndex - 1 >= 0) {
-          const oldTile = this.board.getTileWithCoordinates({
-            xIndex: this.xIndex,
-            yIndex: this.yIndex,
-          });
-          this.xIndex = this.xIndex - 1;
-          this.yIndex = this.yIndex - 1;
-          const newTile = this.board.getTileWithCoordinates({
-            xIndex: this.xIndex,
-            yIndex: this.yIndex,
-          });
-          newTile.setOrganism(oldTile.organism);
-          oldTile.setOrganism(null);
-        } else {
-          this.move();
-        }
+      } else {
+        newTile.setOrganism(oldTile.organism);
+        oldTile.setOrganism(null);
       }
       resolve();
     });
