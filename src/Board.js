@@ -5,6 +5,7 @@ import { Sheep } from './Sheep';
 import { Fox } from './Fox';
 import { Antelope } from './Antelope';
 import { Turtle } from './Turtle';
+import { wait } from './wait';
 
 class Board {
   visibleGameGrid = document.querySelector('#game-grid');
@@ -110,6 +111,10 @@ class Board {
       return;
     }
     this.organismsArray.splice(elementIndex, 1);
+    if (organismToFind instanceof Player) {
+      this.playerRemoved = true;
+      console.log('player died');
+    }
   }
 
   getTileWithCoordinates({ xIndex, yIndex }) {
@@ -128,7 +133,9 @@ class Board {
       await organism.move();
     }
     this.refreshBoard();
-    console.log(this.organismsArray)
+    if (this.playerRemoved) {
+      await wait(1000);
+    }
     this.playTurn();
   }
 
