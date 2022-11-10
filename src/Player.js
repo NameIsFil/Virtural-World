@@ -93,16 +93,21 @@ class Player extends Animal {
     });
 
     if (newTile.organism !== this && newTile.organism) {
-      this.board.removeOrganism(newTile.organism);
-      newTile.setOrganism(oldTile.organism);
-      oldTile.setOrganism(null);
+      if (newTile.organism.strength < oldTile.organism.strength) {
+        this.board.removeOrganism(newTile.organism);
+        newTile.setOrganism(oldTile.organism);
+        oldTile.setOrganism(null);
+      } else {
+        this.board.removeOrganism(oldTile.organism);
+        oldTile.setOrganism(null);
+      }
     } else if (newTile.organism === this) {
       newTile.setOrganism(oldTile.organism);
     } else {
       newTile.setOrganism(oldTile.organism);
       oldTile.setOrganism(null);
     }
-
+    
     removeEventListener('keyup', this.onButtonClick);
     if (this.movementResolveFunction) {
       this.movementResolveFunction();
