@@ -70,6 +70,10 @@ class Player extends Animal {
   }
 
   onButtonClick(event) {
+    if (this.board.playerRemoved) {
+      removeEventListener('keyup', this.onButtonClick);
+      return;
+    }
     const newCoordinates = this.getNewCoordinates(event.keyCode);
     if (!newCoordinates) {
       return;
