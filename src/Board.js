@@ -24,6 +24,9 @@ class Board {
     this.spawnPlayer();
     this.spawnWolf();
     this.spawnSheep();
+    this.spawnSheep();
+    this.spawnSheep();
+    this.spawnSheep();
     this.spawnFox();
     this.spawnAntelope();
     this.spawnTurtle();

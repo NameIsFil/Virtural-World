@@ -3,7 +3,7 @@ import { Animal } from './Animal';
 class Player extends Animal {
   divClass = 'player-tile';
   initiative = 4;
-  strength = 5;
+  strength = 1;
 
   movementResolveFunction;
 
@@ -107,7 +107,7 @@ class Player extends Animal {
       newTile.setOrganism(oldTile.organism);
       oldTile.setOrganism(null);
     }
-    
+
     removeEventListener('keyup', this.onButtonClick);
     if (this.movementResolveFunction) {
       this.movementResolveFunction();

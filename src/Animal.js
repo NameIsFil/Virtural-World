@@ -54,42 +54,52 @@ class Animal extends Organism {
         yIndex: this.yIndex - 1,
       };
     }
+    if (randomNumber === 9) {
+      return {
+        xIndex: this.xIndex - 1,
+        yIndex: this.yIndex - 1,
+      };
+    }
   }
 
   move() {
     const randomNumber = () => {
-     return Math.floor(Math.random() * 8) + 1;
-    }
+      return Math.floor(Math.random() * 8) + 1;
+    };
     return new Promise((resolve) => {
-      let { xIndex, yIndex } = this.getNewCoordinates(randomNumber());
-      if (yIndex < 0 || yIndex > 19 || xIndex > 19 || xIndex < 0) {
-        this.move();
+      const { xIndex: targetX, yIndex: targetY } = this.getNewCoordinates(randomNumber());
+      if (targetY < 0 || targetY > 19 || targetX > 19 || targetX < 0) {
+        return this.move().then(() => {resolve()})
+      }
+      const currentTile = this.board.getTileWithCoordinates({
+        xIndex: this.xIndex,
+        yIndex: this.yIndex,
+      });
+      const targetTile = this.board.getTileWithCoordinates({
+        xIndex: targetX,
+        yIndex: targetY
+      });
+      if (!targetTile.organism) {
+        this.xIndex = targetX;
+        this.yIndex = targetY;
+        targetTile.setOrganism(currentTile.organism);
+        currentTile.setOrganism(null);
         return resolve();
       }
-      const oldTile = this.board.getTileWithCoordinates({
-        xIndex: this.xIndex,
-        yIndex: this.yIndex,
-      });
-      this.xIndex = xIndex;
-      this.yIndex = yIndex;
-      const newTile = this.board.getTileWithCoordinates({
-        xIndex: this.xIndex,
-        yIndex: this.yIndex,
-      });
-      if (newTile.organism) {
-        if (newTile.organism.strength < oldTile.organism.strength) {
-          this.board.removeOrganism(newTile.organism);
-          newTile.setOrganism(oldTile.organism);
-          oldTile.setOrganism(null);
-        } else {
-          this.board.removeOrganism(oldTile.organism);
-          oldTile.setOrganism(null);
-        }
-      } else {
-        newTile.setOrganism(oldTile.organism);
-        oldTile.setOrganism(null);
+      if (targetTile.organism.strength === currentTile.organism.strength) {
+        return resolve();
+      } 
+      if (targetTile.organism.strength < currentTile.organism.strength) {
+        this.xIndex = targetX;
+        this.yIndex = targetY;
+        this.board.removeOrganism(targetTile.organism);
+        targetTile.setOrganism(currentTile.organism);
+        currentTile.setOrganism(null);
+        return resolve();
       }
-      resolve();
+      this.board.removeOrganism(currentTile.organism);
+      currentTile.setOrganism(null);
+      return resolve();
     });
   }
 }
