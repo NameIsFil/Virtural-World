@@ -106,6 +106,31 @@ class Board {
     this.organismsArray.push(this.turtle);
   }
 
+  findEmptyTileAroundCoordinates({ xIndex, yIndex }) {
+    const arrayOfSurroundingTiles = [];
+    for (let y = -1; y < 2; y++) {
+      for (let x = -1; x < 2; x++) {
+        const tileX = xIndex + x;
+        const tileY = yIndex + y;
+        const tile = this.gameGrid[tileY][tileX];
+        if (!tile.organism) {
+          arrayOfSurroundingTiles.push(tile);
+        }
+      }
+    }
+  }
+
+  mate(parrentOrganism) {
+    const emptyTile = findEmptyTileAroundCoordinates({
+      xIndex: parrentOrganism.xIndex,
+      yIndex: parrentOrganism.yIndex,
+    });
+    if (!emptyTile) {
+      return;
+    }
+    const newOrganism = parrentOrganism.constructor(xIndex, yIndex, board);
+  }
+
   removeOrganism(organismToFind) {
     const elementIndex = this.organismsArray.findIndex((organism) => {
       return organism === organismToFind;

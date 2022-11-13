@@ -67,9 +67,13 @@ class Animal extends Organism {
       return Math.floor(Math.random() * 8) + 1;
     };
     return new Promise((resolve) => {
-      const { xIndex: targetX, yIndex: targetY } = this.getNewCoordinates(randomNumber());
+      const { xIndex: targetX, yIndex: targetY } = this.getNewCoordinates(
+        randomNumber(),
+      );
       if (targetY < 0 || targetY > 19 || targetX > 19 || targetX < 0) {
-        return this.move().then(() => {resolve()})
+        return this.move().then(() => {
+          resolve();
+        });
       }
       const currentTile = this.board.getTileWithCoordinates({
         xIndex: this.xIndex,
@@ -77,7 +81,7 @@ class Animal extends Organism {
       });
       const targetTile = this.board.getTileWithCoordinates({
         xIndex: targetX,
-        yIndex: targetY
+        yIndex: targetY,
       });
       if (!targetTile.organism) {
         this.xIndex = targetX;
@@ -86,9 +90,13 @@ class Animal extends Organism {
         currentTile.setOrganism(null);
         return resolve();
       }
+      if (
+        targetTile.organism.constructor === currentTile.organism.constructor
+      ) {
+      }
       if (targetTile.organism.strength === currentTile.organism.strength) {
         return resolve();
-      } 
+      }
       if (targetTile.organism.strength < currentTile.organism.strength) {
         this.xIndex = targetX;
         this.yIndex = targetY;
