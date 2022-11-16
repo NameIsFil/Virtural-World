@@ -21,8 +21,6 @@ class Tile {
       this.divElement.classList.add(this.organism.divClass);
     }
   }
-
-  // removeOrganism()
 }
 
 export { Tile };

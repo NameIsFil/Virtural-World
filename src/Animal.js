@@ -70,7 +70,12 @@ class Animal extends Organism {
       const { xIndex: targetX, yIndex: targetY } = this.getNewCoordinates(
         randomNumber(),
       );
-      if (targetY < 0 || targetY > 19 || targetX > 19 || targetX < 0) {
+      if (
+        targetY < 0 ||
+        targetY > this.board.numberOfRows - 1 ||
+        targetX > this.board.numberOfColumns - 1 ||
+        targetX < 0
+      ) {
         return this.move().then(() => {
           resolve();
         });
