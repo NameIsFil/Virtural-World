@@ -25,8 +25,6 @@ class Board {
     this.spawnWolf();
     this.spawnSheep();
     this.spawnSheep();
-    this.spawnSheep();
-    this.spawnSheep();
     this.spawnFox();
     this.spawnAntelope();
     this.spawnTurtle();
@@ -114,21 +112,31 @@ class Board {
         const tileY = yIndex + y;
         const tile = this.gameGrid[tileY][tileX];
         if (!tile.organism) {
-          arrayOfSurroundingTiles.push(tile);
+          arrayOfSurroundingTiles.push({ tile, tileX, tileY });
         }
       }
     }
+    return arrayOfSurroundingTiles[
+      Math.floor(Math.random() * arrayOfSurroundingTiles.length)
+    ];
   }
 
   mate(parrentOrganism) {
-    const emptyTile = findEmptyTileAroundCoordinates({
+    const emptyTile = this.findEmptyTileAroundCoordinates({
       xIndex: parrentOrganism.xIndex,
       yIndex: parrentOrganism.yIndex,
     });
     if (!emptyTile) {
       return;
     }
-    const newOrganism = parrentOrganism.constructor(xIndex, yIndex, board);
+    const newOrganism = new parrentOrganism.constructor(
+      emptyTile.tileX,
+      emptyTile.tileY,
+      this,
+    );
+    emptyTile.tile.setOrganism(newOrganism);
+    this.organismsArray.push(newOrganism);
+    console.log('new organism has been born');
   }
 
   removeOrganism(organismToFind) {

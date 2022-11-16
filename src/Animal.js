@@ -93,6 +93,8 @@ class Animal extends Organism {
       if (
         targetTile.organism.constructor === currentTile.organism.constructor
       ) {
+        this.board.mate(currentTile.organism);
+        return resolve();
       }
       if (targetTile.organism.strength === currentTile.organism.strength) {
         return resolve();
