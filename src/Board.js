@@ -6,6 +6,10 @@ import { Fox } from './Fox';
 import { Antelope } from './Antelope';
 import { Turtle } from './Turtle';
 import { wait } from './wait';
+import { Guarana } from './Guarana';
+import { Grass } from './Grass';
+import { Berry } from './Berry';
+import { Thistle } from './Thistle';
 
 class Board {
   visibleGameGrid = document.querySelector('#game-grid');
@@ -18,6 +22,10 @@ class Board {
   sheep;
   antelope;
   turtle;
+  guarana;
+  grass;
+  berry;
+  thistle;
 
   constructor() {
     this.generateGrid();
@@ -28,6 +36,10 @@ class Board {
     this.spawnFox();
     this.spawnAntelope();
     this.spawnTurtle();
+    this.spawnGrass();
+    this.spawnGuarana();
+    this.spawnBerry();
+    this.spawnSowThistle();
     this.refreshBoard();
     this.playTurn();
   }
@@ -104,12 +116,52 @@ class Board {
     this.organismsArray.push(this.turtle);
   }
 
+  spawnGuarana() {
+    const { xIndex, yIndex } = this.getRandomFreeCoordinates();
+    this.guarana = new Guarana(xIndex, yIndex, this);
+    const tile = this.gameGrid[this.guarana.yIndex][this.guarana.xIndex];
+    tile.setOrganism(this.guarana);
+    this.organismsArray.push(this.guarana);
+  }
+
+  spawnGrass() {
+    const { xIndex, yIndex } = this.getRandomFreeCoordinates();
+    this.grass = new Grass(xIndex, yIndex, this);
+    const tile = this.gameGrid[this.grass.yIndex][this.grass.xIndex];
+    tile.setOrganism(this.grass);
+    this.organismsArray.push(this.grass);
+  }
+
+  spawnBerry() {
+    const { xIndex, yIndex } = this.getRandomFreeCoordinates();
+    this.berry = new Berry(xIndex, yIndex, this);
+    const tile = this.gameGrid[this.berry.yIndex][this.berry.xIndex];
+    tile.setOrganism(this.berry);
+    this.organismsArray.push(this.berry);
+  }
+
+  spawnSowThistle() {
+    const { xIndex, yIndex } = this.getRandomFreeCoordinates();
+    this.thistle = new Thistle(xIndex, yIndex, this);
+    const tile = this.gameGrid[this.thistle.yIndex][this.thistle.xIndex];
+    tile.setOrganism(this.thistle);
+    this.organismsArray.push(this.thistle);
+  }
+
   findEmptyTileAroundCoordinates({ xIndex, yIndex }) {
     const arrayOfSurroundingTiles = [];
     for (let y = -1; y < 2; y++) {
       for (let x = -1; x < 2; x++) {
         const tileX = xIndex + x;
         const tileY = yIndex + y;
+        if (
+          tileY < 0 ||
+          tileY > this.numberOfRows - 1 ||
+          tileX > this.numberOfColumns - 1 ||
+          tileX < 0
+        ) {
+          continue;
+        }
         const tile = this.gameGrid[tileY][tileX];
         if (!tile.organism) {
           arrayOfSurroundingTiles.push({ tile, tileX, tileY });

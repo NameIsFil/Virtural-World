@@ -58,3 +58,23 @@ body {
   background-image: url('turtle2.png');
   background-size: 38px;
 }
+
+.guarana-tile {
+  background-image: url('guarana.png');
+  background-size: 38px;
+}
+
+.grass-tile {
+  background-image: url('grass3.png');
+  background-size: 38px;
+}
+
+.berry-tile {
+  background-image: url('poisonberry.png');
+  background-size: 38px;
+}
+
+.sow-tile {
+  background-image: url('sowthistle.png');
+  background-size: 38px;
+}
