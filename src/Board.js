@@ -10,6 +10,7 @@ import { Guarana } from './Guarana';
 import { Grass } from './Grass';
 import { Berry } from './Berry';
 import { Thistle } from './Thistle';
+import { CreateOrganismPopup } from './CreateOrganismPopup';
 
 class Board {
   visibleGameGrid = document.querySelector('#game-grid');
@@ -40,6 +41,7 @@ class Board {
     this.spawnGuarana();
     this.spawnBerry();
     this.spawnSowThistle();
+    this.createOrganismPopup = new CreateOrganismPopup(this);
     this.refreshBoard();
     this.playTurn();
   }
@@ -48,7 +50,7 @@ class Board {
     for (let y = 0; y < this.numberOfColumns; y++) {
       this.gameGrid[y] = this.gameGrid[y] || [];
       for (let x = 0; x < this.numberOfRows; x++) {
-        const tile = new Tile();
+        const tile = new Tile(x, y);
         this.gameGrid[y][x] = tile;
         this.visibleGameGrid.appendChild(tile.divElement);
       }
