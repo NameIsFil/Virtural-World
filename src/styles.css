@@ -30,51 +30,55 @@ body {
 }
 
 .player-tile {
-  background-image: url('face.png');
+  background-image: url('./organisms/animals/face.png');
   background-size: 38px;
 }
 
 .wolf-tile {
-  background-image: url('wolf.png');
+  background-image: url('./organisms/animals/wolf.png');
   background-size: 38px;
 }
 
 .sheep-tile {
-  background-image: url('sheep.png');
+  background-image: url('./organisms/animals/sheep.png');
   background-size: 38px;
 }
 
 .fox-tile {
-  background-image: url('fox.png');
+  background-image: url('./organisms/animals/fox.png');
   background-size: 38px;
 }
 
 .antelope-tile {
-  background-image: url('deer.png');
+  background-image: url('./organisms/animals/deer.png');
   background-size: 38px;
 }
 
 .turtle-tile {
-  background-image: url('turtle2.png');
+  background-image: url('./organisms/animals/turtle2.png');
   background-size: 38px;
 }
 
 .guarana-tile {
-  background-image: url('guarana.png');
+  background-image: url('./organisms/plants/guarana.png');
   background-size: 38px;
 }
 
 .grass-tile {
-  background-image: url('grass3.png');
+  background-image: url('./organisms/plants/grass3.png');
   background-size: 38px;
 }
 
 .berry-tile {
-  background-image: url('poisonberry.png');
+  background-image: url('./organisms/plants/poisonberry.png');
   background-size: 38px;
 }
 
 .sow-tile {
-  background-image: url('sowthistle.png');
+  background-image: url('./organisms/plants/sowthistle.png');
   background-size: 38px;
+}
+
+.hidden {
+  display: none;
 }

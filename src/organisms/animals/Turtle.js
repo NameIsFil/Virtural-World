@@ -1,4 +1,5 @@
 import { Animal } from './Animal';
+import { checkWithChance } from '../../utilities/checkWithChance';
 
 class Turtle extends Animal {
   divClass = 'turtle-tile';
@@ -18,7 +19,7 @@ class Turtle extends Animal {
       const { xIndex: targetX, yIndex: targetY } = this.getNewCoordinates(
         randomNumber(),
       );
-      if (Math.random() < 0.75) {
+      if (checkWithChance(0.75)) {
         return resolve();
       } else {
         if (

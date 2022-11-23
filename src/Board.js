@@ -1,15 +1,15 @@
 import { Tile } from './Tile';
-import { Player } from './Player';
-import { Wolf } from './Wolf';
-import { Sheep } from './Sheep';
-import { Fox } from './Fox';
-import { Antelope } from './Antelope';
-import { Turtle } from './Turtle';
+import { Player } from './organisms/animals/Player';
+import { Wolf } from './organisms/animals/Wolf';
+import { Sheep } from './organisms/animals/Sheep';
+import { Fox } from './organisms/animals/Fox';
+import { Antelope } from './organisms/animals/Antelope';
+import { Turtle } from './organisms/animals/Turtle';
 import { wait } from './wait';
-import { Guarana } from './Guarana';
-import { Grass } from './Grass';
-import { Berry } from './Berry';
-import { Thistle } from './Thistle';
+import { Guarana } from './organisms/plants/Guarana';
+import { Grass } from './organisms/plants/Grass';
+import { Berry } from './organisms/plants/Berry';
+import { Thistle } from './organisms/plants/Thistle';
 import { CreateOrganismPopup } from './CreateOrganismPopup';
 
 class Board {
