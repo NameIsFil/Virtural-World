@@ -10,7 +10,12 @@ class CreateOrganismPopup {
       const xIndex = Number(cell.getAttribute('data-x-index'));
       const yIndex = Number(cell.getAttribute('data-y-index'));
       console.log(xIndex, yIndex);
+
+      this.board.hiddenMenu.className = 'unhidden';
     });
+    this.board.closeMenuButton.addEventListener('click', (event) => {
+      this.board.hiddenMenu.className = 'hidden';
+    })
   }
 }
 
