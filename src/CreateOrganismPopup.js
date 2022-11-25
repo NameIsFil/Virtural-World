@@ -2,6 +2,10 @@ import { Wolf } from './organisms/animals/Wolf';
 
 class CreateOrganismPopup {
   board;
+  popupElement = document.querySelector('#create-organism-popup');
+  closeMenuButton = document.querySelector('#close-button');
+  wolfSpawnButton = document.querySelector('#create-wolf-button');
+  grassSpawnButton = document.querySelector('#create-grass-button');
 
   constructor(board) {
     this.board = board;
@@ -11,15 +15,15 @@ class CreateOrganismPopup {
       const xIndex = Number(cell.getAttribute('data-x-index'));
       const yIndex = Number(cell.getAttribute('data-y-index'));
 
-      this.board.hiddenMenu.className = 'unhidden';
+      this.popupElement.classList.remove('hidden');
 
-      this.board.wolfSpawnButton.addEventListener('click', (event) => {
+      this.wolfSpawnButton.addEventListener('click', (event) => {
         this.board.spawnOrganism(Wolf, xIndex, yIndex);
-        this.board.hiddenMenu.className = 'hidden';
+        this.popupElement.classList.add('hidden');
       });
     });
-    this.board.closeMenuButton.addEventListener('click', (event) => {
-      this.board.hiddenMenu.className = 'hidden';
+    this.closeMenuButton.addEventListener('click', (event) => {
+      this.popupElement.classList.add('hidden');
     });
   }
 }

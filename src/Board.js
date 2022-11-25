@@ -14,9 +14,6 @@ import { CreateOrganismPopup } from './CreateOrganismPopup';
 
 class Board {
   visibleGameGrid = document.querySelector('#game-grid');
-  closeMenuButton = document.querySelector('#close-button');
-  wolfSpawnButton = document.querySelector('#wolf-organism');
-  hiddenMenu = document.querySelector('#hidden-menu');
   numberOfRows = 20;
   numberOfColumns = 20;
   gameGrid = [];
