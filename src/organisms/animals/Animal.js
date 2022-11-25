@@ -1,6 +1,8 @@
 import { Organism } from '../Organism';
 
 class Animal extends Organism {
+  isAnimal = true;
+
   constructor(xIndex, yIndex, board) {
     super(xIndex, yIndex, board);
   }

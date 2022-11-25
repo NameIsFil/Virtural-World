@@ -3,10 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <title>Gra</title>
-    <script src="https://kit.fontawesome.com/4daea948e8.js" crossorigin="anonymous"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <script
+      src="https://kit.fontawesome.com/4daea948e8.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="front">
@@ -16,89 +22,93 @@
           <i class="fa-solid fa-xmark" id="close-button"></i>
         </div>
         <div class="bottom">
-          <div class="button-tile">
-            <div class ="img">
-              <img class="wolf-img" src="organisms/animals/wolf.png" alt="wolf"/>
+          <div class="button-tile" id="wolf-organism">
+            <div class="img">
+              <img
+                class="wolf-img"
+                src="organisms/animals/wolf.png"
+                alt="wolf"
+              />
             </div>
-            <div class ="text">
+            <div class="text">
               <p>
-                Wolf<br>
-                Strength: 9, Initiative: 5<br>
+                Wolf<br />
+                Strength: 9, Initiative: 5<br />
               </p>
             </div>
           </div>
-          <div class="button-tile">
-            <div class ="img"></div>
-            <div class ="text">
+          <div class="button-tile" id="grass-organism">
+            <div class="img"></div>
+            <div class="text">
+              <p>Grass<br /></p>
+            </div>
+          </div>
+          <div class="button-tile" id="sheep-organism">
+            <div class="img"></div>
+            <div class="text">
               <p>
-                Grass<br>
+                Sheep<br />
+                Strength: 3, Initiative: 4<br />
               </p>
             </div>
           </div>
-          <div class="button-tile">
-            <div class ="img"></div>
-            <div class ="text">
+          <div class="button-tile" id="guarana-organism">
+            <div class="img"></div>
+            <div class="text">
               <p>
-                Sheep<br>
-                Strength: 3, Initiative: 4<br>
+                Guarana<br />
+                Eating it boosts strength by 3 points<br />
               </p>
             </div>
           </div>
-          <div class="button-tile">
-            <div class ="img"></div>
-            <div class ="text">
+          <div class="button-tile" id="fox-organism">
+            <div class="img"></div>
+            <div class="text">
               <p>
-                Guarana<br>
-                Eating it boosts strength by 3 points<br>
+                Fox<br />
+                Strength: 4, Initiative: 7<br />
+                Never tries to move to a field that is occupied by a stronger
+                organism<br />
               </p>
             </div>
           </div>
-          <div class="button-tile">
-            <div class ="img"></div>
-            <div class ="text">
+          <div class="button-tile" id="berry-organism">
+            <div class="img"></div>
+            <div class="text">
               <p>
-                Fox<br>
-                Strength: 4, Initiative: 7<br>
-                Never tries to move to a field that is occupied by a stronger organism<br>
+                Poison Berry<br />
+                Kills everything that dares to eat it<br />
               </p>
             </div>
           </div>
-          <div class="button-tile">
-            <div class ="img"></div>
-            <div class ="text">
+          <div class="button-tile" id="antelope-organism">
+            <div class="img"></div>
+            <div class="text">
               <p>
-                Poison Berry<br>
-                Kills everything that dares to eat it<br>
+                Antelope<br />
+                Strength: 4, Initiative: 4<br />
+                Has double range of movement and 50% chance of fleeing from
+                fight<br />
               </p>
             </div>
           </div>
-          <div class="button-tile">
-            <div class ="img"></div>
-            <div class ="text">
+          <div class="button-tile" id="thistle-organism">
+            <div class="img"></div>
+            <div class="text">
               <p>
-                Antelope<br>
-                Strength: 4, Initiative: 4<br>
-                Has double range of movement and 50% chance of fleeing from fight<br>
+                Sow Thistle<br />
+                Has three times as much chance of spreading than other plants<br />
               </p>
             </div>
           </div>
-          <div class="button-tile">
-            <div class ="img"></div>
-            <div class ="text">
+          <div class="button-tile" id="turtle-organism">
+            <div class="img"></div>
+            <div class="text">
               <p>
-                Sow Thistle<br>
-                Has three times as much chance of spreading than other plants<br>
-              </p>
-            </div>
-          </div>
-          <div class="button-tile">
-            <div class ="img"></div>
-            <div class ="text">
-              <p>
-                Turtle<br>
-                Strength: 2, Initiative: 1<br>
-                Won't move, 75% of time.<br>
-                Can't be hurt by organism with strength lower than 5.<br>
+                Turtle<br />
+                Strength: 2, Initiative: 1<br />
+                Won't move, 75% of time.<br />
+                Can't be hurt by organism with strength lower than 5.<br />
               </p>
             </div>
           </div>

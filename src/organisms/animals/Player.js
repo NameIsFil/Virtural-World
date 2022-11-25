@@ -1,4 +1,6 @@
 import { Animal } from './Animal';
+import { Guarana } from '../plants/Guarana';
+import { Berry } from '../plants/Berry';
 
 class Player extends Animal {
   divClass = 'player-tile';
@@ -97,13 +99,18 @@ class Player extends Animal {
     });
 
     if (newTile.organism !== this && newTile.organism) {
-      if (newTile.organism.strength < oldTile.organism.strength) {
-        this.board.removeOrganism(newTile.organism);
-        newTile.setOrganism(oldTile.organism);
-        oldTile.setOrganism(null);
-      } else {
+      if (newTile.organism.isPoisonous) {
         this.board.removeOrganism(oldTile.organism);
         oldTile.setOrganism(null);
+      } else {
+        if (newTile.organism.strength < oldTile.organism.strength) {
+          this.board.removeOrganism(newTile.organism);
+          newTile.setOrganism(oldTile.organism);
+          oldTile.setOrganism(null);
+        } else {
+          this.board.removeOrganism(oldTile.organism);
+          oldTile.setOrganism(null);
+        }
       }
     } else if (newTile.organism === this) {
       newTile.setOrganism(oldTile.organism);

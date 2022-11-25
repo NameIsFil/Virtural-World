@@ -1,5 +1,5 @@
-function checkWithChance(numberToCheck) {
-  return Math.random() < numberToCheck;
+function checkWithChance(percentageChance) {
+  return Math.random() <= percentageChance;
 }
 
 export { checkWithChance };
