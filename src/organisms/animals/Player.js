@@ -1,17 +1,22 @@
 import { Animal } from './Animal';
+import { keyCodes } from "../../utilities/keyCodes";
+import { PlayerMovementKeyboard } from "../../PlayerMovementKeyboard";
 import { Guarana } from '../plants/Guarana';
 import { Berry } from '../plants/Berry';
 
 class Player extends Animal {
+
   divClass = 'player-tile';
   initiative = 4;
   strength = 5;
 
   movementResolveFunction;
+  playerMovementKeyboard;
 
   constructor(xIndex, yIndex, board) {
     super(xIndex, yIndex, board);
     this.onButtonClick = this.onButtonClick.bind(this);
+    this.playerMovementKeyboard = new PlayerMovementKeyboard(this.board, this)
   }
 
   getNewCoordinates(keyCode) {
@@ -57,7 +62,7 @@ class Player extends Animal {
         yIndex: this.yIndex + 1,
       };
     }
-    if (keyCode === 37) {
+    if (keyCode === keyCodes.left) {
       return {
         xIndex: this.xIndex - 1,
         yIndex: this.yIndex,

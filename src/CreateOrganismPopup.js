@@ -80,6 +80,7 @@ class CreateOrganismPopup {
 
       this.popupElement.classList.remove('hidden');
     });
+
     this.closeMenuButton.addEventListener('click', (event) => {
       this.popupElement.classList.add('hidden');
     });

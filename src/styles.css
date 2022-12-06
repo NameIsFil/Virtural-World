@@ -16,9 +16,20 @@ body {
 }
 
 .back {
+  display: flex;
+  align-items: center;
   position: fixed;
   z-index: 1;
   top: 50px;
+}
+
+.movement-keyboard {
+  margin-left: 100px;
+}
+
+.button {
+  height: 50px;
+  width: 50px;
 }
 
 #game-grid {
@@ -29,6 +40,41 @@ body {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+}
+
+.movement-keyboard {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  width: 100px;
+}
+
+.rotate-bottom-right {
+  rotate: 45deg;
+}
+
+.rotate-top-right {
+  rotate: -45deg;
+}
+
+.rotate-top-left {
+  rotate: -135deg;
+}
+
+.rotate-bottom-left {
+  rotate: 135deg;
+}
+
+.rotate-top {
+  rotate: -90deg;
+}
+
+.rotate-bottom {
+  rotate: 90deg;
+}
+
+.rotate-left {
+  rotate: 180deg;
 }
 
 .create-organism-popup {
