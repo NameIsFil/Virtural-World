@@ -97,6 +97,11 @@ class Animal extends Organism {
         currentTile.setOrganism(null);
         return resolve();
       }
+      if (targetTile.organism.isPoisonous) {
+        this.board.removeOrganism(currentTile.organism);
+        currentTile.setOrganism(null);
+        return resolve();
+      }
       if (
         targetTile.organism.constructor === currentTile.organism.constructor
       ) {

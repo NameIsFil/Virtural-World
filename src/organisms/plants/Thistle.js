@@ -12,7 +12,8 @@ class Thistle extends Plant {
 
   move() {
     return new Promise((resolve) => {
-      if (checkWithChance(0.3)) {
+      this.turnsAfterBorn += 1;
+      if (checkWithChance(0.3) && this.turnsAfterBorn > 3) {
         const emptyTile = this.board.findEmptyTileAroundCoordinates({
           xIndex: this.xIndex,
           yIndex: this.yIndex,

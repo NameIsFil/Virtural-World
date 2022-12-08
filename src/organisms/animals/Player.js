@@ -1,11 +1,10 @@
 import { Animal } from './Animal';
-import { keyCodes } from "../../utilities/keyCodes";
-import { PlayerMovementKeyboard } from "../../PlayerMovementKeyboard";
+import { keyCodes } from '../../utilities/keyCodes';
+import { PlayerMovementKeyboard } from '../../PlayerMovementKeyboard';
 import { Guarana } from '../plants/Guarana';
 import { Berry } from '../plants/Berry';
 
 class Player extends Animal {
-
   divClass = 'player-tile';
   initiative = 4;
   strength = 5;
@@ -16,47 +15,47 @@ class Player extends Animal {
   constructor(xIndex, yIndex, board) {
     super(xIndex, yIndex, board);
     this.onButtonClick = this.onButtonClick.bind(this);
-    this.playerMovementKeyboard = new PlayerMovementKeyboard(this.board, this)
+    this.playerMovementKeyboard = new PlayerMovementKeyboard(this.board, this);
   }
 
   getNewCoordinates(keyCode) {
-    if (keyCode === 12) {
+    if (keyCode === keyCodes.standStill) {
       return {
         xIndex: this.xIndex,
         yIndex: this.yIndex,
       };
     }
-    if (keyCode === 38) {
+    if (keyCode === keyCodes.bottom) {
       return {
         xIndex: this.xIndex,
         yIndex: this.yIndex - 1,
       };
     }
-    if (keyCode === 33) {
+    if (keyCode === keyCodes.bottomRight) {
       return {
         xIndex: this.xIndex + 1,
         yIndex: this.yIndex - 1,
       };
     }
-    if (keyCode === 39) {
+    if (keyCode === keyCodes.right) {
       return {
         xIndex: this.xIndex + 1,
         yIndex: this.yIndex,
       };
     }
-    if (keyCode === 34) {
+    if (keyCode === keyCodes.topRight) {
       return {
         xIndex: this.xIndex + 1,
         yIndex: this.yIndex + 1,
       };
     }
-    if (keyCode === 40) {
+    if (keyCode === keyCodes.top) {
       return {
         xIndex: this.xIndex,
         yIndex: this.yIndex + 1,
       };
     }
-    if (keyCode === 35) {
+    if (keyCode === keyCodes.topLeft) {
       return {
         xIndex: this.xIndex - 1,
         yIndex: this.yIndex + 1,
@@ -68,7 +67,7 @@ class Player extends Animal {
         yIndex: this.yIndex,
       };
     }
-    if (keyCode === 36) {
+    if (keyCode === keyCodes.bottomLeft) {
       return {
         xIndex: this.xIndex - 1,
         yIndex: this.yIndex - 1,
@@ -82,6 +81,7 @@ class Player extends Animal {
       return;
     }
     const newCoordinates = this.getNewCoordinates(event.keyCode);
+    console.log(event.keyCode);
     if (!newCoordinates) {
       return;
     }

@@ -12,7 +12,8 @@ class Guarana extends Plant {
 
   move() {
     return new Promise((resolve) => {
-      if (checkWithChance(0.1)) {
+      this.turnsAfterBorn += 1;
+      if (checkWithChance(0.1) && this.turnsAfterBorn > 1) {
         const emptyTile = this.board.findEmptyTileAroundCoordinates({
           xIndex: this.xIndex,
           yIndex: this.yIndex,
