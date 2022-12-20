@@ -65,7 +65,12 @@ class Animal extends Organism {
   }
 
   isCollisionWithWall(targetY, targetX) {
-    return targetY < 0 || targetY > this.board.numberOfRows - 1 || targetX > this.board.numberOfColumns - 1 || targetX < 0;
+    return (
+      targetY < 0 ||
+      targetY > this.board.numberOfRows - 1 ||
+      targetX > this.board.numberOfColumns - 1 ||
+      targetX < 0
+    );
   }
 
   attemptToMove(targetTile, currentTile, targetX, targetY) {
@@ -86,6 +91,29 @@ class Animal extends Organism {
       return true;
     }
     return false;
+  }
+
+  attemptToMate(targetTile, currentTile) {
+    if (targetTile.organism.constructor === currentTile.organism.constructor) {
+      this.board.mate(currentTile.organism);
+      return true;
+    }
+    return false;
+  }
+
+  checkIfStrengthEqual(targetTile, currentTile) {
+    return targetTile.organism.strength === currentTile.organism.strength;
+  }
+
+  checkStrengthUnequal(targetTile, currentTile, targetX, targetY) {
+    if (targetTile.organism.strength < currentTile.organism.strength) {
+      this.xIndex = targetX;
+      this.yIndex = targetY;
+      this.board.removeOrganism(targetTile.organism);
+      targetTile.setOrganism(currentTile.organism);
+      currentTile.setOrganism(null);
+      return;
+    }
   }
 
   move() {
@@ -109,22 +137,16 @@ class Animal extends Organism {
         xIndex: targetX,
         yIndex: targetY,
       });
-
-      if(this.attemptToMove(targetTile, currentTile, targetX, targetY)) {
+      if (this.attemptToMove(targetTile, currentTile, targetX, targetY)) {
         return resolve();
       }
-
       if (this.checkIfPoisonous(targetTile, currentTile)) {
         return resolve();
       }
-
-      if (
-        targetTile.organism.constructor === currentTile.organism.constructor
-      ) {
-        this.board.mate(currentTile.organism);
+      if (this.attemptToMate(targetTile, currentTile)) {
         return resolve();
       }
-      if (targetTile.organism.strength === currentTile.organism.strength) {
+      if (this.checkIfStrengthEqual(targetTile, currentTile)) {
         return resolve();
       }
       if (targetTile.organism.strength < currentTile.organism.strength) {
