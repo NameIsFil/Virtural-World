@@ -64,6 +64,30 @@ class Animal extends Organism {
     }
   }
 
+  isCollisionWithWall(targetY, targetX) {
+    return targetY < 0 || targetY > this.board.numberOfRows - 1 || targetX > this.board.numberOfColumns - 1 || targetX < 0;
+  }
+
+  attemptToMove(targetTile, currentTile, targetX, targetY) {
+    if (!targetTile.organism) {
+      this.xIndex = targetX;
+      this.yIndex = targetY;
+      targetTile.setOrganism(currentTile.organism);
+      currentTile.setOrganism(null);
+      return true;
+    }
+    return false;
+  }
+
+  checkIfPoisonous(targetTile, currentTile) {
+    if (targetTile.organism.isPoisonous) {
+      this.board.removeOrganism(currentTile.organism);
+      currentTile.setOrganism(null);
+      return true;
+    }
+    return false;
+  }
+
   move() {
     const randomNumber = () => {
       return Math.floor(Math.random() * 8) + 1;
@@ -72,12 +96,7 @@ class Animal extends Organism {
       const { xIndex: targetX, yIndex: targetY } = this.getNewCoordinates(
         randomNumber(),
       );
-      if (
-        targetY < 0 ||
-        targetY > this.board.numberOfRows - 1 ||
-        targetX > this.board.numberOfColumns - 1 ||
-        targetX < 0
-      ) {
+      if (this.isCollisionWithWall(targetY, targetX)) {
         return this.move().then(() => {
           resolve();
         });
@@ -90,18 +109,15 @@ class Animal extends Organism {
         xIndex: targetX,
         yIndex: targetY,
       });
-      if (!targetTile.organism) {
-        this.xIndex = targetX;
-        this.yIndex = targetY;
-        targetTile.setOrganism(currentTile.organism);
-        currentTile.setOrganism(null);
+
+      if(this.attemptToMove(targetTile, currentTile, targetX, targetY)) {
         return resolve();
       }
-      if (targetTile.organism.isPoisonous) {
-        this.board.removeOrganism(currentTile.organism);
-        currentTile.setOrganism(null);
+
+      if (this.checkIfPoisonous(targetTile, currentTile)) {
         return resolve();
       }
+
       if (
         targetTile.organism.constructor === currentTile.organism.constructor
       ) {

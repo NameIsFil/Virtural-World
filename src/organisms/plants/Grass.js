@@ -1,5 +1,6 @@
 import { Plant } from './Plant';
 import { checkWithChance } from '../../utilities/checkWithChance';
+import { NUMBER_OF_TURNS_TO_BECOME_MATEABLE } from '../../utilities/constants';
 
 class Grass extends Plant {
   divClass = 'grass-tile';
@@ -13,7 +14,7 @@ class Grass extends Plant {
   move() {
     return new Promise((resolve) => {
       this.turnsAfterBorn += 1;
-      if (checkWithChance(0.1) && this.turnsAfterBorn > 3) {
+      if (checkWithChance(0.1) && this.turnsAfterBorn > NUMBER_OF_TURNS_TO_BECOME_MATEABLE) {
         const emptyTile = this.board.findEmptyTileAroundCoordinates({
           xIndex: this.xIndex,
           yIndex: this.yIndex,

@@ -9,6 +9,8 @@ import { Berry } from './organisms/plants/Berry';
 import { Thistle } from './organisms/plants/Thistle';
 
 class CreateOrganismPopup {
+  xIndex;
+  yIndex;
   board;
   popupElement = document.querySelector('#create-organism-popup');
   closeMenuButton = document.querySelector('#close-button');
@@ -28,8 +30,8 @@ class CreateOrganismPopup {
     this.board.visibleGameGrid.addEventListener('click', (event) => {
       const cell = event.target;
 
-      const xIndex = Number(cell.getAttribute('data-x-index'));
-      const yIndex = Number(cell.getAttribute('data-y-index'));
+      this.xIndex = Number(cell.getAttribute('data-x-index'));
+      this.yIndex = Number(cell.getAttribute('data-y-index'));
 
       const spawnButtons = [
         {
@@ -72,7 +74,7 @@ class CreateOrganismPopup {
 
       spawnButtons.forEach(({ button, classToCreate }) => {
         button.addEventListener('click', () => {
-          this.board.spawnOrganism(classToCreate, xIndex, yIndex);
+          this.board.spawnOrganism(classToCreate, this.xIndex, this.yIndex);
           this.popupElement.classList.add('hidden');
           console.log('button clicked');
         });
