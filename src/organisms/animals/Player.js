@@ -107,6 +107,11 @@ class Player extends Animal {
       if (newTile.organism.isPoisonous) {
         this.board.removeOrganism(oldTile.organism);
         oldTile.setOrganism(null);
+      } else if (newTile.organism.givesBuffs) {
+        this.board.removeOrganism(newTile.organism);
+        newTile.setOrganism(oldTile.organism);
+        oldTile.setOrganism(null);
+        this.strength += 4;
       } else {
         if (newTile.organism.strength < oldTile.organism.strength) {
           this.board.removeOrganism(newTile.organism);

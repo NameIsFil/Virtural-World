@@ -32,7 +32,6 @@ class Thistle extends Plant {
         );
         emptyTile.tile.setOrganism(newOrganism);
         this.board.organismsArray.push(newOrganism);
-        console.log('new plant has been born');
         return resolve();
       } else {
         return resolve();

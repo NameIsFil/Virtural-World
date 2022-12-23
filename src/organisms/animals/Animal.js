@@ -79,6 +79,20 @@ class Animal extends Organism {
       this.yIndex = targetY;
       targetTile.setOrganism(currentTile.organism);
       currentTile.setOrganism(null);
+      console.log('red');
+      return true;
+    }
+    return false;
+  }
+
+  checkIfPlant(targetTile, currentTile, targetX, targetY) {
+    if (targetTile.organism.isPlant) {
+      this.xIndex = targetX;
+      this.yIndex = targetY;
+      this.board.removeOrganism(currentTile.organism);
+      targetTile.setOrganism(currentTile.organism);
+      currentTile.setOrganism(null);
+      console.log('blue');
       return true;
     }
     return false;
@@ -105,15 +119,16 @@ class Animal extends Organism {
     return targetTile.organism.strength === currentTile.organism.strength;
   }
 
-  checkStrengthUnequal(targetTile, currentTile, targetX, targetY) {
+  organismConflict(targetTile, currentTile, targetX, targetY) {
     if (targetTile.organism.strength < currentTile.organism.strength) {
       this.xIndex = targetX;
       this.yIndex = targetY;
       this.board.removeOrganism(targetTile.organism);
       targetTile.setOrganism(currentTile.organism);
       currentTile.setOrganism(null);
-      return;
+      return true;
     }
+    return false;
   }
 
   move() {
@@ -143,22 +158,19 @@ class Animal extends Organism {
       if (this.checkIfPoisonous(targetTile, currentTile)) {
         return resolve();
       }
+      if (this.checkIfPlant(targetTile, currentTile, targetX, targetY)) {
+        return resolve();
+      }
       if (this.attemptToMate(targetTile, currentTile)) {
         return resolve();
       }
       if (this.checkIfStrengthEqual(targetTile, currentTile)) {
         return resolve();
       }
-      if (targetTile.organism.strength < currentTile.organism.strength) {
-        this.xIndex = targetX;
-        this.yIndex = targetY;
-        this.board.removeOrganism(targetTile.organism);
-        targetTile.setOrganism(currentTile.organism);
-        currentTile.setOrganism(null);
+      if (this.organismConflict) {
         return resolve();
       }
-      this.board.removeOrganism(currentTile.organism);
-      currentTile.setOrganism(null);
+      console.log('black');
       return resolve();
     });
   }
