@@ -1,15 +1,16 @@
 import { Tile } from './Tile';
-import { Player } from './Player';
-import { Wolf } from './Wolf';
-import { Sheep } from './Sheep';
-import { Fox } from './Fox';
-import { Antelope } from './Antelope';
-import { Turtle } from './Turtle';
+import { Player } from './organisms/animals/Player';
+import { Wolf } from './organisms/animals/Wolf';
+import { Sheep } from './organisms/animals/Sheep';
+import { Fox } from './organisms/animals/Fox';
+import { Antelope } from './organisms/animals/Antelope';
+import { Turtle } from './organisms/animals/Turtle';
 import { wait } from './wait';
-import { Guarana } from './Guarana';
-import { Grass } from './Grass';
-import { Berry } from './Berry';
-import { Thistle } from './Thistle';
+import { Guarana } from './organisms/plants/Guarana';
+import { Grass } from './organisms/plants/Grass';
+import { Berry } from './organisms/plants/Berry';
+import { Thistle } from './organisms/plants/Thistle';
+import { CreateOrganismPopup } from './CreateOrganismPopup';
 
 class Board {
   visibleGameGrid = document.querySelector('#game-grid');
@@ -40,6 +41,7 @@ class Board {
     this.spawnGuarana();
     this.spawnBerry();
     this.spawnSowThistle();
+    this.createOrganismPopup = new CreateOrganismPopup(this);
     this.refreshBoard();
     this.playTurn();
   }
@@ -48,7 +50,7 @@ class Board {
     for (let y = 0; y < this.numberOfColumns; y++) {
       this.gameGrid[y] = this.gameGrid[y] || [];
       for (let x = 0; x < this.numberOfRows; x++) {
-        const tile = new Tile();
+        const tile = new Tile(x, y);
         this.gameGrid[y][x] = tile;
         this.visibleGameGrid.appendChild(tile.divElement);
       }
@@ -189,6 +191,18 @@ class Board {
     emptyTile.tile.setOrganism(newOrganism);
     this.organismsArray.push(newOrganism);
     console.log('new organism has been born');
+  }
+
+  spawnOrganism(organismToSpawn, xIndex, yIndex) {
+    const selectedTile = this.gameGrid[yIndex][xIndex];
+    const newOrganism = new organismToSpawn(
+      selectedTile.xIndex,
+      selectedTile.yIndex,
+      this,
+    );
+    selectedTile.setOrganism(newOrganism);
+    this.organismsArray.push(newOrganism);
+    selectedTile.refreshDiv();
   }
 
   removeOrganism(organismToFind) {

@@ -1,12 +1,35 @@
 * {
   box-sizing: border-box;
-  font-family: 'Montserrat SemiBold';
+  font-family: 'Poppins', sans-serif;
 }
 
 body {
   display: flex;
-  align-items: center;
   justify-content: center;
+}
+
+.front {
+  position: relative;
+  z-index: 2;
+  box-shadow: 0px 0px 20px #aaaaaa;
+  top: 42px;
+}
+
+.back {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  z-index: 1;
+  top: 50px;
+}
+
+.movement-keyboard {
+  margin-left: 100px;
+}
+
+.button {
+  height: 50px;
+  width: 50px;
 }
 
 #game-grid {
@@ -17,6 +40,168 @@ body {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+}
+
+.movement-keyboard {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  width: 100px;
+}
+
+.rotate-bottom-right {
+  rotate: 45deg;
+}
+
+.rotate-top-right {
+  rotate: -45deg;
+}
+
+.rotate-top-left {
+  rotate: -135deg;
+}
+
+.rotate-bottom-left {
+  rotate: 135deg;
+}
+
+.rotate-top {
+  rotate: -90deg;
+}
+
+.rotate-bottom {
+  rotate: 90deg;
+}
+
+.rotate-left {
+  rotate: 180deg;
+}
+
+.create-organism-popup {
+  width: 800px;
+  height: 800px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.top {
+  height: 60px;
+  width: 800px;
+  background-color: #f2f2f2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: solid;
+  border-color: #e5e5e5;
+  border-width: 1px;
+}
+
+.top p {
+  font-size: 15px;
+  color: #2e2e2e;
+  font-weight: 400;
+}
+
+.bottom {
+  height: 740px;
+  width: 800px;
+  padding: 20px;
+  background-color: #f2f2f2;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: space-between;
+}
+
+.button-tile {
+  width: 370px;
+  height: 124px;
+  display: flex;
+  flex-direction: row;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  box-shadow: 0px 0px 3px #aaaaaa;
+}
+
+.img {
+  width: 124px;
+  height: 124px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-right: solid;
+  border-color: #e5e5e5;
+  border-width: 1px;
+}
+
+.wolf-img {
+  height: 100px;
+  width: 100px;
+}
+
+.fox-img {
+  height: 100px;
+  width: 100px;
+}
+
+.sheep-img {
+  height: 100px;
+  width: 100px;
+}
+
+.antelope-img {
+  height: 100px;
+  width: 100px;
+}
+
+.turtle-img {
+  height: 90px;
+  width: 90px;
+}
+
+.grass-img {
+  height: 100px;
+  width: 100px;
+}
+
+.guarana-img {
+  height: 100px;
+  width: 100px;
+}
+
+.berry-img {
+  height: 90px;
+  width: 90px;
+}
+
+.thistle-img {
+  height: 100px;
+  width: 100px;
+}
+
+.text {
+  width: 246px;
+  height: 124px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.text p {
+  margin-left: 12px;
+  font-size: 12px;
+  color: #2e2e2e;
+  font-weight: 400;
 }
 
 .cell {
@@ -30,51 +215,51 @@ body {
 }
 
 .player-tile {
-  background-image: url('face.png');
+  background-image: url('./organisms/animals/face.png');
   background-size: 38px;
 }
 
 .wolf-tile {
-  background-image: url('wolf.png');
+  background-image: url('./organisms/animals/wolf.png');
   background-size: 38px;
 }
 
 .sheep-tile {
-  background-image: url('sheep.png');
+  background-image: url('./organisms/animals/sheep.png');
   background-size: 38px;
 }
 
 .fox-tile {
-  background-image: url('fox.png');
+  background-image: url('./organisms/animals/fox.png');
   background-size: 38px;
 }
 
 .antelope-tile {
-  background-image: url('deer.png');
+  background-image: url('./organisms/animals/deer.png');
   background-size: 38px;
 }
 
 .turtle-tile {
-  background-image: url('turtle2.png');
+  background-image: url('./organisms/animals/turtle2.png');
   background-size: 38px;
 }
 
 .guarana-tile {
-  background-image: url('guarana.png');
+  background-image: url('./organisms/plants/guarana.png');
   background-size: 38px;
 }
 
 .grass-tile {
-  background-image: url('grass3.png');
+  background-image: url('./organisms/plants/grass3.png');
   background-size: 38px;
 }
 
 .berry-tile {
-  background-image: url('poisonberry.png');
+  background-image: url('./organisms/plants/poisonberry.png');
   background-size: 38px;
 }
 
 .sow-tile {
-  background-image: url('sowthistle.png');
+  background-image: url('./organisms/plants/sowthistle.png');
   background-size: 38px;
 }

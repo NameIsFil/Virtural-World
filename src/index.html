@@ -3,8 +3,197 @@
   <head>
     <meta charset="UTF-8" />
     <title>Gra</title>
+    <script
+      src="https://kit.fontawesome.com/4daea948e8.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <div id="game-grid"></div>
+    <div class="front">
+      <div class="create-organism-popup hidden" id="create-organism-popup">
+        <div class="top">
+          <p>Choose organism to create</p>
+          <i class="fa-solid fa-xmark" id="close-button"></i>
+        </div>
+        <div class="bottom">
+          <div class="button-tile" id="create-wolf-button">
+            <div class="img">
+              <img
+                class="wolf-img"
+                src="organisms/animals/wolf.png"
+                alt="wolf"
+              />
+            </div>
+            <div class="text">
+              <p>
+                Wolf<br />
+                Strength: 9, Initiative: 5<br />
+              </p>
+            </div>
+          </div>
+          <div class="button-tile" id="create-grass-button">
+            <div class="img">
+              <img
+                class="grass-img"
+                src="organisms/plants/grass3.png"
+                alt="grass"
+              />
+            </div>
+            <div class="text">
+              <p>Grass<br /></p>
+            </div>
+          </div>
+          <div class="button-tile" id="create-sheep-button">
+            <div class="img">
+              <img
+                class="sheep-img"
+                src="organisms/animals/sheep.png"
+                alt="sheep"
+              />
+            </div>
+            <div class="text">
+              <p>
+                Sheep<br />
+                Strength: 3, Initiative: 4<br />
+              </p>
+            </div>
+          </div>
+          <div class="button-tile" id="create-guarana-button">
+            <div class="img">
+              <img
+                class="guarana-img"
+                src="organisms/plants/guarana.png"
+                alt="grass"
+              />
+            </div>
+            <div class="text">
+              <p>
+                Guarana<br />
+                Eating it boosts strength by 3 points<br />
+              </p>
+            </div>
+          </div>
+          <div class="button-tile" id="create-fox-button">
+            <div class="img">
+              <img class="fox-img" src="organisms/animals/fox.png" alt="fox" />
+            </div>
+            <div class="text">
+              <p>
+                Fox<br />
+                Strength: 4, Initiative: 7<br />
+                Never tries to move to a field that is occupied by a stronger
+                organism<br />
+              </p>
+            </div>
+          </div>
+          <div class="button-tile" id="create-berry-button">
+            <div class="img">
+              <img
+                class="berry-img"
+                src="organisms/plants/poisonberry.png"
+                alt="poison-berry"
+              />
+            </div>
+            <div class="text">
+              <p>
+                Poison Berry<br />
+                Kills everything that dares to eat it<br />
+              </p>
+            </div>
+          </div>
+          <div class="button-tile" id="create-antelope-button">
+            <div class="img">
+              <img
+                class="antelope-img"
+                src="organisms/animals/deer.png"
+                alt="antelope"
+              />
+            </div>
+            <div class="text">
+              <p>
+                Antelope<br />
+                Strength: 4, Initiative: 4<br />
+                Has double range of movement and 50% chance of fleeing from
+                fight<br />
+              </p>
+            </div>
+          </div>
+          <div class="button-tile" id="create-thistle-button">
+            <div class="img">
+              <img
+                class="thistle-img"
+                src="organisms/plants/sowthistle.png"
+                alt="sow-thistle"
+              />
+            </div>
+            <div class="text">
+              <p>
+                Sow Thistle<br />
+                Has three times as much chance of spreading than other plants<br />
+              </p>
+            </div>
+          </div>
+          <div class="button-tile" id="create-turtle-button">
+            <div class="img">
+              <img
+                class="turtle-img"
+                src="organisms/animals/turtle2.png"
+                alt="turtle"
+              />
+            </div>
+            <div class="text">
+              <p>
+                Turtle<br />
+                Strength: 2, Initiative: 1<br />
+                Won't move, 75% of time.<br />
+                Can't be hurt by organism with strength lower than 5.<br />
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="back">
+      <div id="game-grid"></div>
+      <div class="movement-keyboard">
+        <div class="row-one">
+          <button class="button" id="move-top-left">
+            <i class="fa-solid fa-angle-right rotate-top-left"></i>
+          </button>
+          <button class="button" id="move-left">
+            <i class="fa-solid fa-angle-right rotate-left"></i>
+          </button>
+          <button class="button" id="move-bottom-left">
+            <i class="fa-solid fa-angle-right rotate-bottom-left"></i>
+          </button>
+        </div>
+        <div class="row-two">
+          <button class="button" id="move-top">
+            <i class="fa-solid fa-angle-right rotate-top"></i>
+          </button>
+          <button class="button" id="move-stay">o</button>
+          <button class="button" id="move-bottom">
+            <i class="fa-solid fa-angle-right rotate-bottom"></i>
+          </button>
+        </div>
+        <div class="row-three">
+          <button class="button" id="move-top-right">
+            <i class="fa-solid fa-angle-right rotate-top-right"></i>
+          </button>
+          <button class="button" id="move-right">
+            <i class="fa-solid fa-angle-right"></i>
+          </button>
+          <button class="button" id="move-bottom-right">
+            <i class="fa-solid fa-angle-right rotate-bottom-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

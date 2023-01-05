@@ -1,4 +1,8 @@
 import { Animal } from './Animal';
+import { keyCodes } from '../../utilities/keyCodes';
+import { PlayerMovementKeyboard } from '../../PlayerMovementKeyboard';
+import { Guarana } from '../plants/Guarana';
+import { Berry } from '../plants/Berry';
 
 class Player extends Animal {
   divClass = 'player-tile';
@@ -6,62 +10,64 @@ class Player extends Animal {
   strength = 5;
 
   movementResolveFunction;
+  playerMovementKeyboard;
 
   constructor(xIndex, yIndex, board) {
     super(xIndex, yIndex, board);
     this.onButtonClick = this.onButtonClick.bind(this);
+    this.playerMovementKeyboard = new PlayerMovementKeyboard(this.board, this);
   }
 
   getNewCoordinates(keyCode) {
-    if (keyCode === 12) {
+    if (keyCode === keyCodes.standStill) {
       return {
         xIndex: this.xIndex,
         yIndex: this.yIndex,
       };
     }
-    if (keyCode === 38) {
+    if (keyCode === keyCodes.bottom) {
       return {
         xIndex: this.xIndex,
         yIndex: this.yIndex - 1,
       };
     }
-    if (keyCode === 33) {
+    if (keyCode === keyCodes.bottomRight) {
       return {
         xIndex: this.xIndex + 1,
         yIndex: this.yIndex - 1,
       };
     }
-    if (keyCode === 39) {
+    if (keyCode === keyCodes.right) {
       return {
         xIndex: this.xIndex + 1,
         yIndex: this.yIndex,
       };
     }
-    if (keyCode === 34) {
+    if (keyCode === keyCodes.topRight) {
       return {
         xIndex: this.xIndex + 1,
         yIndex: this.yIndex + 1,
       };
     }
-    if (keyCode === 40) {
+    if (keyCode === keyCodes.top) {
       return {
         xIndex: this.xIndex,
         yIndex: this.yIndex + 1,
       };
     }
-    if (keyCode === 35) {
+    if (keyCode === keyCodes.topLeft) {
       return {
         xIndex: this.xIndex - 1,
         yIndex: this.yIndex + 1,
       };
     }
-    if (keyCode === 37) {
+    if (keyCode === keyCodes.left) {
       return {
         xIndex: this.xIndex - 1,
         yIndex: this.yIndex,
       };
     }
-    if (keyCode === 36) {
+    if (keyCode === keyCodes.bottomLeft) {
       return {
         xIndex: this.xIndex - 1,
         yIndex: this.yIndex - 1,
@@ -75,6 +81,7 @@ class Player extends Animal {
       return;
     }
     const newCoordinates = this.getNewCoordinates(event.keyCode);
+    console.log(event.keyCode);
     if (!newCoordinates) {
       return;
     }
@@ -97,13 +104,23 @@ class Player extends Animal {
     });
 
     if (newTile.organism !== this && newTile.organism) {
-      if (newTile.organism.strength < oldTile.organism.strength) {
+      if (newTile.organism.isPoisonous) {
+        this.board.removeOrganism(oldTile.organism);
+        oldTile.setOrganism(null);
+      } else if (newTile.organism.givesBuffs) {
         this.board.removeOrganism(newTile.organism);
         newTile.setOrganism(oldTile.organism);
         oldTile.setOrganism(null);
+        this.strength += 4;
       } else {
-        this.board.removeOrganism(oldTile.organism);
-        oldTile.setOrganism(null);
+        if (newTile.organism.strength < oldTile.organism.strength) {
+          this.board.removeOrganism(newTile.organism);
+          newTile.setOrganism(oldTile.organism);
+          oldTile.setOrganism(null);
+        } else {
+          this.board.removeOrganism(oldTile.organism);
+          oldTile.setOrganism(null);
+        }
       }
     } else if (newTile.organism === this) {
       newTile.setOrganism(oldTile.organism);

@@ -1,0 +1,1 @@
+export const NUMBER_OF_TURNS_TO_BECOME_MATEABLE = 2;
